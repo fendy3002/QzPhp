@@ -11,6 +11,10 @@ class Q{
         return self::$instance;
     }
 
+    public function string(){
+        return new String();
+    }
+    
     public function stringEmpty($str){
         return (empty($str) || trim($str)==='');
     }
