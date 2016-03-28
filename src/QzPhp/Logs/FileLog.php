@@ -21,8 +21,7 @@ class FileLog implements ILog {
         $this->write($add);
     }
     public function exception($ex){
-        $message = date($dateFormat) . ' ' . $ex->message . ' ' . $ex->getTraceAsString();
-        $add = sprintf($message. "\n", $params);
+        $add = gmdate($this->dateFormat) . ' ' . $ex->getMessage() . ' ' . $ex->getTraceAsString() . "\n";
         $this->write($add);
     }
 
