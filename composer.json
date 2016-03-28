@@ -13,12 +13,9 @@
         }
     ],
     "autoload": {
-        "psr-4": {"QzPhp\\": "src/QzPhp"}
+        "psr-0  ": {"QzPhp\\": "src/QzPhp"}
     },
     "require": {
         "php": ">=5.5.0"
-    },
-    "config": {
-        "preferred-install": "dist"
     }
 }
