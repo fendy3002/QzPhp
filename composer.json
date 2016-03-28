@@ -1,0 +1,24 @@
+{
+    "name": "qz/qzphp",
+    "description": "The QzPhp class library.",
+    "keywords": ["libraries", "qzphp", "qz"],
+    "license": "MIT",
+    "type": "library",
+    "homepage": "https://git.coderscolony.co/Libraries/QzPhp",
+    "authors": [
+        {
+            "name": "Fendy Heryanto",
+            "email": "fendy.heryanto@coderscolony.com",
+            "homepage": "http://smartflow.wordpress.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {"QzPhp\\": "src/QzPhp"}
+    },
+    "require": {
+        "php": ">=5.5.0"
+    },
+    "config": {
+        "preferred-install": "dist"
+    }
+}
