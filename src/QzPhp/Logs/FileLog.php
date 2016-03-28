@@ -6,6 +6,8 @@ class FileLog implements ILog {
         $this->filePath = $filePath;
     }
     private $filePath = '';
+    public $dateFormat = 'Y-m-d H:i:s';
+
     public function message($message, $params = NULL){
         $add = sprintf($message, $params);
         $this->write($add);
@@ -19,7 +21,8 @@ class FileLog implements ILog {
         $this->write($add);
     }
     public function exception($ex){
-        $add = print_r($ex, true);
+        $message = date($dateFormat) . ' ' . $ex->message . ' ' . $ex->getTraceAsString();
+        $add = sprintf($message. "\n", $params);
         $this->write($add);
     }
 
