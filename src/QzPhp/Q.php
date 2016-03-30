@@ -14,7 +14,11 @@ class Q{
     public function string(){
         return new String();
     }
-    
+
+    public function url(){
+        return new Url();
+    }
+
     public function stringEmpty($str){
         return (empty($str) || trim($str)==='');
     }

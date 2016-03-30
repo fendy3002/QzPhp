@@ -15,7 +15,15 @@
     "autoload": {
         "psr-4": {"QzPhp\\": "src/QzPhp"}
     },
+    "autoload-dev": {
+        "classmap": [
+            "tests/TestCase.php"
+        ]
+    },
     "require": {
         "php": ">=5.5.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~4.0"
     }
 }
