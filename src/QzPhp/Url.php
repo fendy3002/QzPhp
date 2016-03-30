@@ -4,7 +4,10 @@ namespace QzPhp;
 class Url{
     public function safeFetch($url){
         $context = stream_context_create(array(
-            'http' => array('ignore_errors' => true),
+            'http' => array(
+                'ignore_errors' => true,
+                'header'=>'Connection: close\r\n'),
+
         ));
 
         $content = file_get_contents($url, false, $context);
