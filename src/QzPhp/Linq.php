@@ -269,6 +269,18 @@ class Linq {
 		return $result;
 	}
 
+	public static function toKeyValue($source, $key, $value){
+		if(empty($source) || count($source) == 0){
+			return [];
+		}
+
+		$result = [];
+		foreach($source as $each){
+			$result[$key($each)] = $value($each);
+		}
+		return $result;
+	}
+
 	public static function whereExistsIn($source, $compared, $key){
 		return Linq::where($source, function($k) use($compared, $key){
             return Linq::any($compared, function($l) use ($k, $key){

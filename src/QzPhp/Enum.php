@@ -75,6 +75,13 @@ class Enum {
 		return $this;
 	}
 
+	public function toKeyValue($key, $value){
+		array_push($this->commands, function($data) use($key, $value){
+			return Linq::toKeyValue($data, $key, $value);
+		});
+		return $this;
+	}
+
 	public function firstOrDefault($handler, $default){
 		$result = $this->value();
 		return Linq::firstOrDefault($result, $handler, $default);
