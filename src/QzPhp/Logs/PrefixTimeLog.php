@@ -20,6 +20,10 @@ class PrefixTimeLog implements ILog {
         $this->inner->messageln($this->getPrefix());
         $this->inner->object($object);
     }
+    public function exception ($object){
+        $this->inner->messageln($this->getPrefix());
+        $this->inner->exception($object);
+    }
 
     private function getPrefix(){
         return $this->prefix . ' ' . $this->getDate();
