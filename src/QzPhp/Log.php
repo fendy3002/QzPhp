@@ -1,12 +1,12 @@
 <?php
-namespace QzPhp
+namespace QzPhp;
 
 class Log {
     public function __construct($log = null){
         if(!empty($log)){
             $this->log = $log;
         }else{
-            $this->log = new \App\Libraries\Logs\ConsoleLog();
+            $this->log = new \QzPhp\Logs\ConsoleLog();
         }
     }
     public $log;
