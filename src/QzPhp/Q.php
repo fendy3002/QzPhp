@@ -14,6 +14,9 @@ class Q{
     public function string(){
         return new String();
     }
+    public function io(){
+        return new IO();
+    }
 
     public function url(){
         return new Url();
