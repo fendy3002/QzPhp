@@ -2,6 +2,22 @@
 namespace QzPhp;
 
 class IO{
+    public function combine(){
+        $args = func_get_args();
+        if(empty($args) || count($args) == 0){
+            return null;
+        }
+        if(count($args) == 1){
+            return $args[0];
+        }
+
+        $result = rtrim($args[0], DIRECTORY_SEPARATOR);
+        for($i = 1; $i < count($args); $i++){
+            $result .= DIRECTORY_SEPARATOR . rtrim($args[$i], DIRECTORY_SEPARATOR);
+        }
+        return $result;
+    }
+
     public function getFolderSize($path){
         if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
             return $this->getFolderSizeWindows($path);
