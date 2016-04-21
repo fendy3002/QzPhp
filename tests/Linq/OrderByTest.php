@@ -30,11 +30,11 @@ class OrderByTest extends \Tests\TestCase
 
         $expected = [
             (object)['name' => 'name3', 'address' => 'address3', 'value' => 20],
-            (object)['name' => 'name1', 'address' => 'address1', 'value' => 15],
-            (object)['name' => 'name2', 'address' => 'address2', 'value' => 10]
+            (object)['name' => 'name2', 'address' => 'address2', 'value' => 10],
+            (object)['name' => 'name1', 'address' => 'address1', 'value' => 15]
         ];
 
-        $actual = \QzPhp\Q::Z()->enum($data)->orderBy(function($k, $l){ return $k->value > $l->value; })->result();
+        $actual = \QzPhp\Q::Z()->enum($data)->orderBy(function($k, $l){ return $k->name > $l->name; })->result();
         $this->assertEquals($expected, $actual);
     }
 }
