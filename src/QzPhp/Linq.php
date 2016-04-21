@@ -118,7 +118,9 @@ class Linq {
 			return $data;
 		}
 		$result = array_values($data);
-		usort($result, $handler);
+		usort($result, function($k, $l) use($handler){
+			return $handler($l, $k);
+		});
 		return $result;
 	}
 
