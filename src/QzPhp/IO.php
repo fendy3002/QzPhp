@@ -56,7 +56,7 @@ class IO{
         $files = glob($path . DIRECTORY_SEPARATOR . '*' ); // get all file names
         foreach($files as $file){ // iterate files
             if(is_dir($file)) {
-                $this->clearFolder($file);
+                $this->deleteFolderContent($file);
                 rmdir($file);
             } else {
                 unlink($file);
