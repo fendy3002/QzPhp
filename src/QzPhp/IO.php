@@ -51,6 +51,24 @@ class IO{
         $zip->close();
     }
 
+    public function unzip($zipFile, $extractTo = NULL){
+        $extractTo = empty($extractTo) || $extractTo == '' ? $this->directoryOf($zipFile) : $extractTo;
+
+        $zip = new \ZipArchive;
+        $res = $zip->open($zipFile);
+        if ($res === TRUE) {
+            $zip->extractTo($extractTo);
+            $zip->close();
+        } else {
+            throw new \Exception('file not found');
+        }
+    }
+
+    public function directoryOf($file){
+        $path_parts = pathinfo($file);
+        return $path_parts['dirname'];
+    }
+
     public function deleteFolderContent($path){
         $path = rtrim($path, DIRECTORY_SEPARATOR);
         $files = glob($path . DIRECTORY_SEPARATOR . '*' ); // get all file names
