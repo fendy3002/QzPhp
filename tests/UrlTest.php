@@ -18,4 +18,13 @@ class UrlTest extends \Tests\TestCase
         $this->assertEquals('404', $fetched->code);
         $this->assertEquals('404 Not Found', $fetched->content);
     }
+
+    public function testSafeFetchToFile()
+    {
+        $file = __DIR__ . '/../storage/url_temp.txt';
+        \QzPhp\Q::Z()->url()->safeFetchToFile('http://httpstat.us/200', $file);
+        $this->assertFileExists($file);
+        $this->assertEquals('200 OK', file_get_contents($file));
+        unlink($file);
+    }
 }
