@@ -85,6 +85,29 @@ class IO{
         }
     }
 
+    /**
+     * read file by part and process each part. Separated by newline
+     * @param  string  $file    file path
+     * @param  closure  $process function to be processed
+     * @param  integer $chunk   chunk size, default 32 kb or 2 ^ 15
+     * @return void
+     */
+    public function readFileByPart($file, $process, $chunk = 32768, $delimiter = "\n"){
+        $fseekPos = 0;
+        $handle = fopen($file, "r");
+        while(!feof($handle)){
+            fseek($handle, $fseekPos);
+            if(($content = fread($handle, $chunk)) !== false){
+                $contentLength = strrpos($content, $delimiter);
+                $content = substr($content, 0, $contentLength);
+                $process($content);
+                $fseekPos = $fseekPos + $contentLength + 1;
+            }
+        }
+
+        fclose($handle);
+    }
+
     public function getFolderSize($path){
         if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
             return $this->getFolderSizeWindows($path);
