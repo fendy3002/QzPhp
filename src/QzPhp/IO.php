@@ -52,7 +52,10 @@ class IO{
     }
 
     public function unzip($zipFile, $extractTo = NULL){
-        $extractTo = empty($extractTo) || $extractTo == '' ? $this->directoryOf($zipFile) : $extractTo;
+        if(empty($extractTo) || $extractTo == ''){
+            $path_parts = pathinfo($file);
+            $extractTo = $path_parts['dirname'] . $path_parts['filename'];
+        }
 
         $zip = new \ZipArchive;
         $res = $zip->open($zipFile);
