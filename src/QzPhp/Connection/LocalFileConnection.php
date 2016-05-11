@@ -12,7 +12,7 @@ class LocalFileConnection
 
     public function send($localFile, $toFile = NULL){
         $path = rtrim($this->path, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR;
-        $toFile = !empty($toFile) ? $toFile : $path . basename($toFile);
+        $toFile = !empty($toFile) ? $toFile : $path . basename($localFile);
         copy($localFile, $toFile);
     }
 }

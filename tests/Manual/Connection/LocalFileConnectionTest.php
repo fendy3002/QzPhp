@@ -2,7 +2,7 @@
 
 namespace Tests\Connection;
 
-class LocalFileConnectionTest extends \TestCase
+class LocalFileConnectionTest extends \Tests\TestCase
 {
     public function testLocalFile()
     {
@@ -11,12 +11,30 @@ class LocalFileConnectionTest extends \TestCase
             $basepath = 'D:\temp\_file';
         }
         else{
-            $basepath = '/temp/_file';
+            $basepath = '/tmp/_file';
         }
+        $fromFile = realpath(__DIR__ . '/../../../storage/test/file.txt');
 
         $connectionString = 'file://local;path=' . $basepath;
         $builder = new \QzPhp\ConnectionBuilder();
         $conn = $builder->build($connectionString);
-        $conn->send($basepath . DIRECTORY_SEPARATOR . '001.txt', $basepath . DIRECTORY_SEPARATOR . '002.txt');
+        $conn->send($fromFile, $basepath . DIRECTORY_SEPARATOR . '002.txt');
+    }
+
+    public function testNoDestination()
+    {
+        $basepath = '';
+        if(strtoupper(substr(PHP_OS, 0, 3)) === 'WIN'){
+            $basepath = 'D:\temp\_file';
+        }
+        else{
+            $basepath = '/tmp/_file';
+        }
+        $fromFile = realpath(__DIR__ . '/../../../storage/test/file.txt');
+
+        $connectionString = 'file://local;path=' . $basepath;
+        $builder = new \QzPhp\ConnectionBuilder();
+        $conn = $builder->build($connectionString);
+        $conn->send($fromFile);
     }
 }
