@@ -11,6 +11,23 @@ class Linq {
 		}
 		return $result;
 	}
+	public static function whereNotIn($data, $compared, $comparer){
+		$result = array();
+
+		for($i = 0; $i < count($data); $i++){
+			$exists = false;
+			foreach($compared as $eachCompare){
+				if($comparer($data[$i], $eachCompare)){
+					$exists = true;
+					break;
+				}
+			}
+			if(!$exists){
+				array_push($result, $data[$i]);
+			}
+		}
+		return $result;
+	}
 
 	public static function select($data, $handler){
 		$result =  array();
