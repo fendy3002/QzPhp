@@ -14,4 +14,13 @@ class String{
 
         return (substr($haystack, -$length) === $needle);
     }
+    public function replaceMany($source, $matches){
+        $patterns = [];
+        $replacements = [];
+        foreach($matches as $key=>$value){
+            $patterns[] = $key;
+            $replacements[] = $value;
+        }
+        return str_replace($patterns, $replacements, $source);
+    }
 }
