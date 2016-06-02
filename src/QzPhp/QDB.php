@@ -122,4 +122,24 @@ class QDB{
             }
         }
     }
+
+    public function select($table, fields){
+        $prep = $this->dbh->prepare($query);
+        foreach($params as $key => $value){
+            $stmt->bindParam(':' . $key, $$key);
+            $$key = $value;
+        }
+        $stmt->execute();
+        if($stmt->errorCode() != '00000'){
+            $this->log($stmt->errorInfo());
+        }
+        else{
+            $result = $stmt->fetchAll();
+            return \QzPhp\Q::Z()->enum($result)
+                ->select(function($k){
+                    return (object)$k;
+                })->result;
+        }
+        return $result;
+    }
 }
