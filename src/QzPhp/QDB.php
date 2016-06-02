@@ -32,11 +32,13 @@ class QDB{
         return $this->dbh->commit();
     }
 
-    public function statement($query, $params){
+    public function statement($query, $params = NULL){
         $stmt = $this->dbh->prepare($query);
-        foreach($params as $key => $value){
-            $stmt->bindParam(':' . $key, $$key);
-            $$key = $value;
+        if(!empty($params)){
+            foreach($params as $key => $value){
+                $stmt->bindParam(':' . $key, $$key);
+                $$key = $value;
+            }
         }
         $stmt->execute();
         if($stmt->errorCode() != '00000'){
@@ -123,12 +125,15 @@ class QDB{
         }
     }
 
-    public function select($query, $params){
+    public function select($query, $params=NULL){
         $stmt = $this->dbh->prepare($query);
-        foreach($params as $key => $value){
-            $stmt->bindParam(':' . $key, $$key);
-            $$key = $value;
+        if(!empty($params)){
+            foreach($params as $key => $value){
+                $stmt->bindParam(':' . $key, $$key);
+                $$key = $value;
+            }
         }
+
         $stmt->execute();
         if($stmt->errorCode() != '00000'){
             $this->log($stmt->errorInfo());
