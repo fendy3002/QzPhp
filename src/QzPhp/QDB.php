@@ -60,7 +60,7 @@ class QDB{
                 $query .= ', ';
                 $queryValue .= ', ';
             }
-            $query .= $key;
+            $query .= '`' . $key . '`';
             $queryValue .= '?';
             $isFirst = false;
         }
