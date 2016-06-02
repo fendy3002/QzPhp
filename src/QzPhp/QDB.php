@@ -143,7 +143,7 @@ class QDB{
             return \QzPhp\Q::Z()->enum($result)
                 ->select(function($k){
                     return (object)$k;
-                })->result;
+                })->result();
         }
         return $result;
     }
