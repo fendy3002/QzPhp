@@ -123,7 +123,7 @@ class QDB{
         }
     }
 
-    public function select($table, $fields){
+    public function select($query, $fields){
         $stmt = $this->dbh->prepare($query);
         foreach($params as $key => $value){
             $stmt->bindParam(':' . $key, $$key);
