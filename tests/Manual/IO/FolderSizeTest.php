@@ -2,7 +2,7 @@
 
 namespace Tests;
 
-class IOTest extends \Tests\TestCase
+class FolderSizeTest extends \Tests\TestCase
 {
     public function testFolder()
     {
