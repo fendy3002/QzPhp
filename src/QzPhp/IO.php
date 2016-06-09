@@ -108,6 +108,15 @@ class IO{
         fclose($handle);
     }
 
+    public function basename($path){
+        $result = basename($path);
+        if(strpos($result, '?') !== FALSE){
+            return substr($result, 0, strpos($result, '?'));
+        }
+        else{
+            return $result;
+        }
+    }
     public function getFolderSize($path){
         if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
             return $this->getFolderSizeWindows($path);
