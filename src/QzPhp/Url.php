@@ -13,6 +13,7 @@ class Url{
         // receive server response ...
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_FORBID_REUSE, true);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 
         $content = curl_exec ($ch);
         $code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
@@ -36,6 +37,7 @@ class Url{
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_FILE, $fp);
         curl_setopt($ch, CURLOPT_FORBID_REUSE, true);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 
         curl_exec($ch);
         $code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
