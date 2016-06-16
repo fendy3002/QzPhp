@@ -23,6 +23,27 @@ class Url{
             'code' => $code
         ];
     }
+
+    public function post($url, $postdata){
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_POST, 1);
+
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $postdata);
+
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_FORBID_REUSE, true);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+
+        $content = curl_exec ($ch);
+        $code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        curl_close ($ch);
+        return (object)[
+            'content' => $content,
+            'code' => $code
+        ];
+    }
+
     public function safeFetchToFile($url, $file){
         $fp = fopen ($file, 'w+');
 
