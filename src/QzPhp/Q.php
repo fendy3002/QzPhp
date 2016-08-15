@@ -22,6 +22,10 @@ class Q{
         return new Url();
     }
 
+    public function time(){
+        return new Time();
+    }
+    
     public function stringEmpty($str){
         return (empty($str) || trim($str)==='');
     }

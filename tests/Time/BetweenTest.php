@@ -6,7 +6,7 @@ class BetweenTest extends \Tests\TestCase
 {
     public function testNormal()
     {
-        $time = new \QzPhp\Time();
+        $time = \QzPhp\Q::Z()->time();
         $data = [
             ["from" => "23.00", "to" => "08.00", 'now' => '06.00', 'expected' => true],
             ["from" => "23.00", "to" => "08.00", 'now' => '07.00', 'expected' => true],
