@@ -9,9 +9,7 @@ class Time{
         $now = Carbon::createFromFormat($format, $nowStr);
 
         if($from->gt($to)){
-            $now = $now->addDay();
-            $to = $to->addDay();
-            if($now->gte($from) && $now->lte($to)){
+            if($now->gte($from) || $now->lte($to)){
                 return true;
             }
             else{
