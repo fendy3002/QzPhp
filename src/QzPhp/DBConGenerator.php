@@ -2,7 +2,7 @@
 namespace QzPhp;
 
 class DBConGenerator{
-    public function generate($host, $database, $user, $password){
+    public function generate($host, $database){
         $dsn = 'mysql:dbname=' . $database . ';host=' . $host;
         return $dsn;
     }

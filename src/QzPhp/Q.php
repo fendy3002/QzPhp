@@ -25,7 +25,7 @@ class Q{
     public function time(){
         return new Time();
     }
-    
+
     public function stringEmpty($str){
         return (empty($str) || trim($str)==='');
     }
@@ -66,4 +66,10 @@ class Q{
 	public static function enum($data){
 		return new Enum($data);
 	}
+
+    public static function db($dbConf, $logObj = NULL){
+        $dsn = 'mysql:dbname=' . $dbConf['database'] . ';host=' . $dbConf['host'];
+        $dbh = new \PDO($dsn, $dbConf['user'], $dbConf['password']);
+        return new \QzPhp\QDB($db, $logObj);
+    }
 }
