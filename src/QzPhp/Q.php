@@ -70,6 +70,6 @@ class Q{
     public static function db($dbConf, $logObj = NULL){
         $dsn = 'mysql:dbname=' . $dbConf['database'] . ';host=' . $dbConf['host'];
         $dbh = new \PDO($dsn, $dbConf['user'], $dbConf['password']);
-        return new \QzPhp\QDB($db, $logObj);
+        return new \QzPhp\QDB($dbh, $logObj);
     }
 }
