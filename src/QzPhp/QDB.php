@@ -2,7 +2,10 @@
 namespace QzPhp;
 
 class QDB{
-    public function __construct($dbh, $logObj = NULL){
+    public function __construct(
+        $dbh,
+        \QzPhp\Logs\ILog $logObj = NULL
+    ){
         $this->dbh = $dbh;
         $this->logObj = $logObj;
     }
