@@ -15,13 +15,11 @@ class QDB{
     public $logObj;
     public function log($obj){
         if(empty($this->logObj)){
-            $logObj = function($obj){
-                var_dump($obj);
-            };
+            $logObj = new \QzPhp\Logs\ConsoleLog();
             $this->logObj = $logObj;
         }
         $logObj = $this->logObj;
-        $logObj($obj);
+        $logObj->object($obj);
     }
 
     public function beginTransaction(){
