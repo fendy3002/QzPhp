@@ -36,7 +36,7 @@ class Enum {
 		return $this;
 	}
 
-	public function groupBy($select, $compare){
+	public function groupBy($select, $compare = NULL){
 		array_push($this->commands, function($data) use($select, $compare){
 			return Linq::groupBy($data, $select, $compare);
 		});
