@@ -21,6 +21,9 @@ class Q{
     public function url(){
         return new Url();
     }
+    public function curl($url){
+        return new CUrl($url);
+    }
 
     public function time(){
         return new Time();
