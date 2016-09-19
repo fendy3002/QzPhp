@@ -2,7 +2,7 @@
 
 namespace Tests\Manual\Url;
 
-class SafeFetchToUrlTest extends \Tests\TestCase
+class PostTest extends \Tests\TestCase
 {
     public function testPost()
     {

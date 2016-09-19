@@ -14,6 +14,9 @@ class CUrl{
     public $sslVerify = false;
 
     public function addFile($filename, $postname = NULL, $mimetype = NULL){
+        if(!file_exists($filename)){
+            throw new \Exception('File ' . $filename . ' not found.');
+        }
         $mimetype = $mimetype ?: mime_content_type($filename);
         $postname = $postname ?: basename($filename);
         $this->files[] = (object)['filename' => $filename,
