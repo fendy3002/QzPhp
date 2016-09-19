@@ -40,6 +40,14 @@ class Linq {
 		return $result;
 	}
 
+	// select from a key valued array
+	public static function selectKeyValue($data, $handler){
+		$result =  array();
+		foreach($data as $key=>$value){
+			$result[] = $handler($key, $value);
+		}
+		return $result;
+	}
 	// return a new array grouped by parameter
 	public static function groupBy($data, $groupedBy, $comparer = NULL){
 		if(count($data) == 0){

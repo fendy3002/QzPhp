@@ -28,6 +28,12 @@ class Enum {
 		});
 		return $this;
 	}
+	public function selectKeyValue($handler){
+		array_push($this->commands, function($data) use($handler){
+			return Linq::selectKeyValue($data, $handler);
+		});
+		return $this;
+	}
 
 	public function orderBy($handler){
 		array_push($this->commands, function($data) use($handler){
