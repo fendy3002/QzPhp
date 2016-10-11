@@ -37,6 +37,7 @@ class CUrl{
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_FORBID_REUSE, true);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, $this->sslVerify);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, $this->sslVerify);
 
         $postdata = $this->getPostData($this->postdata, $this->files);
         if(count($postdata) > 0){
@@ -69,6 +70,7 @@ class CUrl{
         curl_setopt($ch, CURLOPT_FILE, $fp);
         curl_setopt($ch, CURLOPT_FORBID_REUSE, true);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, $this->sslVerify);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, $this->sslVerify);
 
         $postdata = $this->getPostData($this->postdata, $this->files);
         if(count($postdata) > 0){
