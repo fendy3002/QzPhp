@@ -45,10 +45,12 @@ class CUrl{
 
         $content = curl_exec ($ch);
         $code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        $error = curl_error($ch);
         curl_close ($ch);
         return (object)[
             'content' => $content,
-            'code' => $code
+            'code' => $code,
+            'error' => $error
         ];
     }
 
@@ -75,9 +77,11 @@ class CUrl{
 
         curl_exec($ch);
         $code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        $error = curl_error($ch);
         curl_close ($ch);
         return (object)[
-            'code' => $code
+            'code' => $code,
+            'error' => $error,
         ];
     }
 
