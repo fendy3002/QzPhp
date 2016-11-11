@@ -93,19 +93,8 @@ class IO{
      * @return void
      */
     public function readFileByPart($file, $process, $chunk = 32768, $delimiter = "\n"){
-        $fseekPos = 0;
-        $handle = fopen($file, "r");
-        while(!feof($handle)){
-            fseek($handle, $fseekPos);
-            if(($content = fread($handle, $chunk)) !== false){
-                $contentLength = strrpos($content, $delimiter);
-                $content = substr($content, 0, $contentLength);
-                $process($content);
-                $fseekPos = $fseekPos + $contentLength + 1;
-            }
-        }
-
-        fclose($handle);
+        $fileReader = new FileReader();
+        $fileReader->readFileByPart($file, $process, $chunk, $delimiter);
     }
 
     public function basename($path){

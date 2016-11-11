@@ -19,6 +19,6 @@ class ReadFileByPartTest extends \Tests\TestCase
         $io->readFileByPart($path, function($content) use($listener){
             $listener->count++;
         }, 128);
-        $this->assertEquals(5, $listener->count);
+        $this->assertEquals(6, $listener->count);
     }
 }
