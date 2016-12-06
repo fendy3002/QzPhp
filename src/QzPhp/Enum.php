@@ -63,6 +63,18 @@ class Enum {
 		return $this;
 	}
 
+	public function union(){
+		$args = func_get_args();
+		array_push($this->commands, function($data) use($args){
+			$result = $data;
+	        foreach ($args as $param) {
+	            $result = array_merge($result, $param);
+	        }
+			return $result;
+		});
+		return $this;
+	}
+
 	public function extend($additional){
 		array_push($this->commands, function($data) use($additional){
 			return Linq::extend($data, $additional);
