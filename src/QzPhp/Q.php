@@ -56,6 +56,28 @@ class Q{
         return Linq::union();
     }
 
+    public function result($attr){
+        $result = new \QzPhp\Models\Result();
+        if(!empty($attr['messages'])){
+            $result->setMessage($attr['messages']);
+        }
+        else if(!empty($attr['message'])){
+            $result->addMessage($attr['message']);
+        }
+
+        if(!empty($attr['success'])){
+            $result->setSuccess($attr['success']);
+        }
+        if(!empty($attr['stackTrace'])){
+            $result->setStackTrace($attr['stackTrace']);
+        }
+        if(!empty($attr['data'])){
+            $result->setData($attr['data']);
+        }
+
+        return $result;
+    }
+
     public function arrayIntersect($key, $append){
         $result = array_merge($key, []);
         foreach($key as $k=>$l){
