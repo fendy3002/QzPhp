@@ -17,4 +17,17 @@ class ResultTest extends \Tests\TestCase
         $this->assertEquals($expectedData, $actualResult->data());
         $this->assertEquals([$expectedMessage], $actualResult->messages());
     }
+    public function testConstructMessage()
+    {
+        $expectedMessage = "Hello Luke, I am your father";
+        $actualResult = Q::Z()->result([
+            "messages" => [
+                'Hello Luke',
+                'I am your father'
+            ]
+        ]);
+
+        $this->assertEquals($expectedMessage, $actualResult->message());
+        $this->assertEquals($expectedMessage, $actualResult->message(', '));
+    }
 }

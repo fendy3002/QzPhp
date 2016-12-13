@@ -7,6 +7,9 @@ class Result{
     private $_data = null;
     private $_stackTrace = null;
 
+    public function message($delimiter = ', '){
+        return implode($delimiter, $this->_messages);
+    }
     public function messages(){
         return $this->_messages;
     }
