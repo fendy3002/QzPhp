@@ -28,7 +28,7 @@ class Result{
             'messages' => $this->_messages,
             'stackTrace' => $this->_stackTrace,
             'data' => $this->_data,
-            'success' => $this_success
+            'success' => $this->_success
         ];
     }
 
