@@ -9,6 +9,12 @@ class ResultTest extends \Tests\TestCase
     {
         $expectedData = Q::Z()->uuid();
         $expectedMessage = "Hello World";
+        $expectedToArray = [
+            "data" => $expectedData,
+            "messages" => [$expectedMessage],
+            'success' => true,
+            'stackTrace' => null
+        ];
         $actualResult = Q::Z()->result([
             "data" => $expectedData,
             "message" => $expectedMessage
@@ -16,6 +22,7 @@ class ResultTest extends \Tests\TestCase
 
         $this->assertEquals($expectedData, $actualResult->data());
         $this->assertEquals([$expectedMessage], $actualResult->messages());
+        $this->assertEquals($expectedToArray, $actualResult->toArray());
     }
     public function testConstructMessage()
     {

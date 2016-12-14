@@ -17,10 +17,10 @@ class Result{
         return $this->_stackTrace;
     }
     public function data(){
-        return $this->data;
+        return $this->_data;
     }
     public function isSuccess(){
-        return $this->data;
+        return $this->_success;
     }
 
     public function toArray(){
@@ -107,7 +107,7 @@ class Result{
      * @return QzPhp\Models\Result   current result object for chaining
      */
     public function setData($data){
-        $this->data = $data;
+        $this->_data = $data;
         return $this;
     }
 }
