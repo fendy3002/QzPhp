@@ -65,7 +65,7 @@ class Q{
             $result->addMessage($attr['message']);
         }
 
-        if(!empty($attr['success'])){
+        if(array_key_exists('success', $attr)){
             $result->setSuccess($attr['success']);
         }
         if(!empty($attr['stackTrace'])){

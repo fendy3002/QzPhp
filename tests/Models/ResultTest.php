@@ -37,4 +37,13 @@ class ResultTest extends \Tests\TestCase
         $this->assertEquals($expectedMessage, $actualResult->message());
         $this->assertEquals($expectedMessage, $actualResult->message(', '));
     }
+    public function testSuccessConstruct()
+    {
+        $expectedSuccess = false;
+        $actualResult = Q::Z()->result([
+            "success" => false
+        ]);
+
+        $this->assertEquals($expectedSuccess, $actualResult->isSuccess());
+    }
 }
