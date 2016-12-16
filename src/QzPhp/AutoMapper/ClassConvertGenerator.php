@@ -15,7 +15,7 @@ class ClassConvertGenerator
 
     public function generate(){
         $fields = $this->fields;
-        $generatedClassName = str_replace('\\', '_', $this->className);
+        $generatedClassName = $this->generateClassName($this->className);
 
         $generator = new \QzPhp\SingleMethodClassGenerator($generatedClassName);
 
@@ -25,8 +25,7 @@ class ClassConvertGenerator
             '$data, $additional'
         ];
         $generator->_use = [
-            'QzPhp\Linq',
-            'QzPhp\AutoMapper'
+            'QzPhp\Linq'
         ];
 
         $conversion = "";
@@ -34,9 +33,12 @@ class ClassConvertGenerator
             if(is_object($value)){
                 if($value->type == "array"){
                     if(!empty($value->value)){
+                        $conversion .= $this->generateValue($generator, $key, $value);
+                    }
+                    else if(!empty($value->fields)){
 
                     }
-                    if(!empty($value->schema)){
+                    else if(!empty($value->schema)){
 
                     }
                 }
@@ -50,11 +52,37 @@ class ClassConvertGenerator
             }
         }
 
-        $generator->_methodBody = 'return Linq::select($data, function($k){
+        $generator->_methodBody = 'return Linq::select($data, function($k) use($additional){
             $result = new \\'. $this->className .'();'.
             $conversion .
         '   return $result;
         });';
         $generator->generate();
+    }
+
+    private function generateClassName($className){
+        return str_replace('\\', '_', $this->className);
+    }
+
+    private function generateValue($generator, $key, $value){
+        $generator->properties[] = 'private $' . $key . ';';
+        $generator->_constructorBody .=
+            '$this->' . $key . " = new \QzPhp\AutoMapper\ValueConverter(".
+            '"' . $value->type . '", ' .
+            '"' . $value->value . '"' .
+            ");\n";
+        return '$result->'. $key . ' = $this->' . $key . '->convert($additional["'.$key.'"]);';
+    }
+
+    private function generateKeyValue($generator, $key, $value){
+        $generator->properties[] = 'private $' . $key . ';';
+
+        $generatedClassName = $this->generateClassName($this->className) . '_' . $key;
+        $keyValueConvertGenerator = new KeyValueConvertGenerator(
+            $generatedClassName,
+            $value->type
+        );
+        $generator->_constructorBody .=
+            '$this->' . $key . " = new " . $generatedClassName . ";\n";
     }
 }

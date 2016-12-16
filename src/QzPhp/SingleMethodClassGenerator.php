@@ -16,6 +16,7 @@ class SingleMethodClassGenerator
     public $_use = [];
     public $_methodBody = '';
 
+    public $_properties = [];
     public $_constructorParameters = [];
     public $_constructorBody = '';
 
@@ -31,6 +32,7 @@ class SingleMethodClassGenerator
         $use = implode("\n", $uses);
         $parameter = implode(',', $this->_parameters);
         $constructorParameter = implode(',', $this->_constructorParameters);
+        $property = implode("\n", $this->_properties);
 
         $classDefinition =
             "namespace {$this->_namespace};\n" .
@@ -39,6 +41,7 @@ class SingleMethodClassGenerator
             "   public function __construct($constructorParameter) {\n".
                 "$this->_constructorBody". "\n" .
             "   }\n".
+            "   $property\n".
             "   public function {$this->_methodName}($parameter) {\n".
                 "$this->_methodBody". "\n" .
             "   }\n".

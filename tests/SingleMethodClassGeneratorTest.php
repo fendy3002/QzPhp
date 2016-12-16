@@ -16,9 +16,14 @@ class SingleMethodClassGeneratorTest extends \Tests\TestCase
         $generator->_use = [
             'QzPhp\Q'
         ];
+
+        $generator->_properties = [
+            'public $name = "Luke ";',
+            'public $address;',
+        ];
         $generator->_methodBody = "return
             [
-                'text' => \$name . '-' . \$address,
+                'text' => \$this->name . \$name . '-' . \$address,
                 'uuid' => Q::Z()->uuid()
             ];";
 
@@ -28,7 +33,7 @@ class SingleMethodClassGeneratorTest extends \Tests\TestCase
         $address = 'address1';
         $result = $newClass->execute($name, $address);
 
-        $expectedText = $name . '-' . $address;
+        $expectedText = 'Luke ' . $name . '-' . $address;
         $this->assertEquals($expectedText, $result['text']);
     }
 }
