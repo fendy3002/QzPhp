@@ -1,5 +1,5 @@
 <?php
-namespace Test\AutoMapper;
+namespace Tests\AutoMapper;
 
 class KeyValueConvertGeneratorTest extends \Tests\TestCase
 {

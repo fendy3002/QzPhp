@@ -1,5 +1,5 @@
 <?php
-namespace Test\AutoMapper;
+namespace Tests\AutoMapper;
 
 class ConverterTest extends \Tests\TestCase
 {
