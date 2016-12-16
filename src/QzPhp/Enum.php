@@ -111,7 +111,10 @@ class Enum {
 		return Linq::firstOrDefault($result, $handler, $default);
 	}
 
-	public function firstOrNull($handler){
+	public function firstOrNull($handler = NULL){
+		$handler = $handler ?: function($k){
+			return true;
+		};
 		$result = $this->value();
 		return Linq::firstOrNull($result, $handler);
 	}
