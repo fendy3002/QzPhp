@@ -1,0 +1,48 @@
+{
+    "Models\\Person": {
+        "fields":{
+            "name": "",
+            "birth": "",
+            "id": "identitication_no",
+
+            "addresses": {
+                "type": "array",
+                "schema": "Models\\Address",
+                "key": {
+                    "id": "person_id"
+                }
+            },
+            "phones": {
+                "type": "array",
+                "value": "phone",
+                "key": {
+                    "id": "person_id"
+                }
+            },
+            "educations": {
+                "type": "array",
+                "fields": {
+                    "year": "",
+                    "organization": ""
+                },
+                "key": {
+                    "id": "person_id"
+                }
+            },
+            "mother": {
+                "type": "object",
+                "schema": "Models\\Person",
+                "key": {
+                    "mother_id": "id"
+                }
+            }
+        }
+    },
+    "Models\\Address": {
+        "fields":{
+            "streetName": "",
+            "city":"",
+            "country":""
+        }
+    }
+}
