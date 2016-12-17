@@ -41,6 +41,6 @@ class KeyValueConvertGenerator
         '   return $result;
         });';
 
-        $generator->generate();
+        return $generator->generateClassDefinition();
     }
 }

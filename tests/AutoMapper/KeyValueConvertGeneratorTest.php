@@ -23,7 +23,7 @@ class KeyValueConvertGeneratorTest extends \Tests\TestCase
                 'y' => 'year',
                 'organization' => ''
             ]);
-        $generator->generate();
+        eval($generator->generate());
 
         $expected = [
             (object)[

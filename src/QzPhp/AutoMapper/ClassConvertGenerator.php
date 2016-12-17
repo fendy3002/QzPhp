@@ -6,62 +6,62 @@ use QzPhp\Linq;
 
 class ClassConvertGenerator
 {
-    public function __construct($className, $fields){
-        $this->className = $className;
-        $this->fields = $fields;
+    public function __construct($schema){
+        $this->schema = $schema;
     }
-    public $className;
-    public $fields;
+    public $schema;
 
     public function generate(){
-        $fields = $this->fields;
-        $generatedClassName = $this->generateClassName($this->className);
+        $result = [];
+        foreach($this->schema as $schemaName => $schema){
+            $className = $schema->className;
+            $fields = $schema->fields;
 
-        $generator = new \QzPhp\SingleMethodClassGenerator($generatedClassName);
+            $generator = new \QzPhp\SingleMethodClassGenerator($schemaName);
 
-        $generator->_namespace = 'QzPhp\AutoMapper\Generated';
-        $generator->_methodName = 'convert';
-        $generator->_parameters = [
-            '$data, $additional'
-        ];
-        $generator->_use = [
-            'QzPhp\Linq'
-        ];
+            $generator->_namespace = 'QzPhp\AutoMapper\Generated';
+            $generator->_methodName = 'convert';
+            $generator->_parameters = [
+                '$data, $additional'
+            ];
+            $generator->_use = [
+                'QzPhp\Linq'
+            ];
 
-        $conversion = "";
-        foreach($fields as $key => $value){
-            if(is_object($value)){
-                if($value->type == "array"){
-                    if(!empty($value->value)){
-                        $conversion .= $this->generateValue($generator, $key, $value);
+            $conversion = "";
+            foreach($fields as $key => $value){
+                if(is_object($value)){
+                    if($value->type == "array"){
+                        if(!empty($value->value)){
+                            $conversion .= $this->generateValue($generator, $key, $value);
+                        }
+                        else if(!empty($value->fields)){
+
+                        }
+                        else if(!empty($value->schema)){
+
+                        }
                     }
-                    else if(!empty($value->fields)){
-
-                    }
-                    else if(!empty($value->schema)){
+                    else if($value->type == "object"){
 
                     }
                 }
-                else if($value->type == "object"){
-
+                else{
+                    $value = $value ?: $key;
+                    $conversion .= '$result->'.$key.' = $k->'.$value.';' . "\n";
                 }
             }
-            else{
-                $value = $value ?: $key;
-                $conversion .= '$result->'.$key.' = $k->'.$value.';' . "\n";
-            }
+
+            $generator->_methodBody = 'return Linq::select($data, function($k) use($additional){
+                $result = new \\'. $schema->className .'();'.
+                $conversion .
+            '   return $result;
+            });';
+
+            $result[$schemaName] = $generator->generateClassDefinition();
         }
 
-        $generator->_methodBody = 'return Linq::select($data, function($k) use($additional){
-            $result = new \\'. $this->className .'();'.
-            $conversion .
-        '   return $result;
-        });';
-        $generator->generate();
-    }
-
-    private function generateClassName($className){
-        return str_replace('\\', '_', $this->className);
+        return $result;
     }
 
     private function generateValue($generator, $key, $value){

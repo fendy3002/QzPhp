@@ -3,7 +3,7 @@ namespace Tests\AutoMapper;
 
 class ClassConvertGeneratorTest extends \Tests\TestCase
 {
-    /*public function testFields()
+    public function testFields()
     {
         $addresses = [
             (object)[
@@ -18,22 +18,28 @@ class ClassConvertGeneratorTest extends \Tests\TestCase
             ]
         ];
 
-        $generator = new \QzPhp\AutoMapper\ClassConvertGenerator(
-            'Models\Address',
-            [
-                "streetName"=> "street_name",
-                "city"=>"",
-                "country"=>""
-            ]);
-        $generator->generate();
+        $generator = new \QzPhp\AutoMapper\ClassConvertGenerator([
+            "Address1" => (object)[
+                "className" => 'Models\Address',
+                "fields" => (object)[
+                    "streetName"=> "street_name",
+                    "city"=>"",
+                    "country"=>""
+                ]
+            ]
+        ]);
+        $result = $generator->generate();
+        foreach($result as $key=>$value){
+            eval($value);
+        }
 
         $expected = [];
 
-        $converter = new \QzPhp\AutoMapper\Generated\Models_Address();
+        $converter = new \QzPhp\AutoMapper\Generated\Address1();
         $actual = $converter->convert($addresses, []);
 
         $this->assertEquals(2, count($actual));
-    }*/
+    }
 
     public function testValue()
     {
@@ -56,31 +62,36 @@ class ClassConvertGeneratorTest extends \Tests\TestCase
         ];
 
 
-        $generator = new \QzPhp\AutoMapper\ClassConvertGenerator(
-            'Models\Person',
-            (object)[
-                "name"=> "",
-                "birth"=> "",
-                "id"=> "identitication_no",
-                "phones" => (object)[
-                    "type"=> "array",
-                    "value"=> "phone",
-                    "key"=> (object)[
-                        "id"=> "person_id"
+        $generator = new \QzPhp\AutoMapper\ClassConvertGenerator((object)[
+            "Person1" => (object)[
+                "className" => 'Models\Person',
+                "fields" => (object)[
+                    "name"=> "",
+                    "birth"=> "",
+                    "id"=> "identitication_no",
+                    "phones" => (object)[
+                        "type"=> "array",
+                        "value"=> "phone",
+                        "key"=> (object)[
+                            "id"=> "person_id"
+                        ]
                     ]
                 ]
-            ]);
-        $generator->generate();
+            ]
+        ]);
+        $result = $generator->generate();
+        foreach($result as $key=>$value){
+            eval($value);
+        }
 
         $additionals = [
             "phones" => $phones
         ];
         $expected = [];
 
-        $converter = new \QzPhp\AutoMapper\Generated\Models_Person();
+        $converter = new \QzPhp\AutoMapper\Generated\Person1();
         $actual = $converter->convert($person, $additionals);
 
-        print_r($actual);
-        //$this->assertEquals(2, count($actual));
+        $this->assertEquals(1, count($actual));
     }
 }

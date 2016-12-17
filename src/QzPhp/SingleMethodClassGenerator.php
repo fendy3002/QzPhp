@@ -25,7 +25,7 @@ class SingleMethodClassGenerator
         eval($classDefinition);
     }
 
-    private function generateClassDefinition(){
+    public function generateClassDefinition(){
         $uses = Linq::select($this->_use, function($k){
             return 'use ' . $k . ';';
         });
