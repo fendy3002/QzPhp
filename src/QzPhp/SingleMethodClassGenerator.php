@@ -34,17 +34,18 @@ class SingleMethodClassGenerator
         $constructorParameter = implode(',', $this->_constructorParameters);
         $property = implode("\n", $this->_properties);
 
+        $t1 = "    "; $t2 = $t1 + $t1; $t3 = $t2 + $t1; $t4 = $t2 + $t2;
         $classDefinition =
             "namespace {$this->_namespace};\n" .
             "$use\n" .
             "class {$this->_name}{\n".
-            "   public function __construct($constructorParameter) {\n".
+            $t1 . "public function __construct($constructorParameter) {\n".
                 "$this->_constructorBody". "\n" .
-            "   }\n".
-            "   $property\n".
-            "   public function {$this->_methodName}($parameter) {\n".
+            $t1 . "}\n".
+            "$property\n".
+            $t1 . "public function {$this->_methodName}($parameter) {\n".
                 "$this->_methodBody". "\n" .
-            "   }\n".
+            $t1 . "}\n".
             "}";
         return $classDefinition;
     }
