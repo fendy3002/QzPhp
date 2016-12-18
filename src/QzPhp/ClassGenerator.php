@@ -54,11 +54,32 @@ class ClassGenerator
         return $this->_properties;
     }
     public function setProperties(array $properties){
-        $this->_properties = $properties;
+        $result = [];
+        foreach($properties as $property){
+            if(is_object($property)){
+                $result[] = $property;
+            }
+            else if(is_array($property)){
+                $result[] = (object)[
+                    'value' => $property['value'],
+                    'documentation' => $property['documentation']
+                ];
+            }
+            else{
+                $result[] = (object)[
+                    'value' => $property,
+                    'documentation' => NULL
+                ];
+            }
+        }
+        $this->_properties = $result;
         return $this;
     }
-    public function addProperty($property){
-        $this->_properties[] = $property;
+    public function addProperty($property, $documentation = NULL){
+        $this->_properties[] = (object)[
+            'value' => $property,
+            'documentation' => $documentation
+        ];
         return $this;
     }
 
@@ -87,12 +108,20 @@ class ClassGenerator
         });
         $use = implode("\n", $uses);
         $constructorParameter = implode(',', $this->_constructorParameters);
-        $property = implode("\n", $this->_properties);
+        $properties = Linq::select($this->_properties, function($k){
+            $documentation = !empty($k->documentation) ? $k->documentation . "\n" : "";
+            return $documentation . $k->value;
+        });
+        $property = implode("\n", $properties);
 
         $methods = Linq::select($this->_methods, function($k) use($t1){
             $parameter = implode(', ', $k->parameters);
+            $methodBodies = Linq::select(explode("\n", $k->methodBody), function($l) use ($t1){
+                return $t1 . trim($l);
+            });
+            $methodBody = implode("\n", $methodBodies);
             return $t1 . "public function {$k->methodName}($parameter) {\n".
-                "$k->methodBody". "\n" .
+                "$methodBody". "\n" .
             $t1 . "}\n";
         });
         $method = implode("\n", $methods);

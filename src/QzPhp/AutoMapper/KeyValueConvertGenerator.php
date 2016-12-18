@@ -17,17 +17,13 @@ class KeyValueConvertGenerator
 
     public function generate(){
         $fields = $this->fields;
-        $generator = new \QzPhp\SingleMethodClassGenerator($this->className);
+        $generator = new \QzPhp\ClassGenerator($this->className);
 
-        $generator->_namespace = 'QzPhp\AutoMapper\Generated';
-        $generator->_methodName = 'convert';
-        $generator->_parameters = [
-            '$data'
-        ];
-        $generator->_use = [
-            'QzPhp\Linq',
-            'QzPhp\AutoMapper'
-        ];
+        $generator->setNamespace('QzPhp\AutoMapper\Generated')
+            ->setImports([
+                'QzPhp\Linq',
+                'QzPhp\AutoMapper'
+            ]);
 
         $conversion = "";
         foreach($fields as $key => $value){
@@ -35,11 +31,14 @@ class KeyValueConvertGenerator
             $conversion .= '$result->'.$key.' = $k->'.$value.';' . "\n";
         }
 
-        $generator->_methodBody = 'return Linq::select($data, function($k){
-            $result = (object)[];'.
-            $conversion .
-        '   return $result;
-        });';
+        $generator->addMethod('convert',
+            'return Linq::select($data, function($k){
+                $result = (object)[];'.
+                $conversion .
+            '   return $result;
+            });',
+            ['$data']
+        );
 
         return $generator->generateClassDefinition();
     }

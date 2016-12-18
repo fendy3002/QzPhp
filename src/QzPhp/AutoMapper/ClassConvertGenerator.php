@@ -17,16 +17,12 @@ class ClassConvertGenerator
             $className = $schema->className;
             $fields = $schema->fields;
 
-            $generator = new \QzPhp\SingleMethodClassGenerator($schemaName);
+            $generator = new \QzPhp\ClassGenerator($schemaName);
 
-            $generator->_namespace = 'QzPhp\AutoMapper\Generated';
-            $generator->_methodName = 'convert';
-            $generator->_parameters = [
-                '$data, $additional'
-            ];
-            $generator->_use = [
-                'QzPhp\Linq'
-            ];
+            $generator->setNamespace('QzPhp\AutoMapper\Generated')
+                ->setImports([
+                    'QzPhp\Linq'
+                ]);
 
             $conversion = "";
             foreach($fields as $key => $value){
@@ -52,11 +48,15 @@ class ClassConvertGenerator
                 }
             }
 
-            $generator->_methodBody = 'return Linq::select($data, function($k) use($additional){
-                $result = new \\'. $schema->className .'();'.
-                $conversion .
-            '   return $result;
-            });';
+
+            $generator->addMethod('convert',
+                'return Linq::select($data, function($k) use($additional){
+                    $result = new \\'. $schema->className .'();'.
+                    $conversion .
+                '   return $result;
+                });',
+                ['$data, $additional']
+            );
 
             $result[$schemaName] = $generator->generateClassDefinition();
         }
