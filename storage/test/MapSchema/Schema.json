@@ -1,17 +1,17 @@
 {
-    "Models\Person": {
+    "Models\\Person": {
         "fields":{
             "name": "string",
             "birth": "datetime",
             "id": "string",
 
-            "addresses": "Models\Address[]",
+            "addresses": "Models\\Address[]",
             "phones": "string[]",
             "educations": "object[]",
-            "mother": "Models\Person"
+            "mother": "Models\\Person"
         }
     },
-    "Models\Address": {
+    "Models\\Address": {
         "fields":{
             "streetName": "string",
             "city": "string",

@@ -1,6 +1,6 @@
 {
     "Person1": {
-        "className": "Models\Person",
+        "className": "Models\\Person",
         "fields":{
             "name": "",
             "birth": "",
@@ -32,7 +32,7 @@
             },
             "mother": {
                 "type": "object",
-                "schema": "Models\Person",
+                "schema": "Models\\Person",
                 "key": {
                     "mother_id": "id"
                 }
@@ -40,7 +40,7 @@
         }
     },
     "Address1": {
-        "className": "Models\Address",
+        "className": "Models\\Address",
         "fields":{
             "streetName": "",
             "city":"",

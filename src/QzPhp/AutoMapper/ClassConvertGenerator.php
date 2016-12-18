@@ -29,7 +29,7 @@ class ClassConvertGenerator
                 if(is_object($value)){
                     if($value->type == "array"){
                         if(!empty($value->value)){
-                            $conversion .= $this->generateValue($generator, $key, $value);
+                            $conversion .= $this->generateValue($generator, $key, $value) . "\n";
                         }
                         else if(!empty($value->fields)){
 
@@ -44,17 +44,16 @@ class ClassConvertGenerator
                 }
                 else{
                     $value = $value ?: $key;
-                    $conversion .= '$result->'.$key.' = $k->'.$value.';' . "\n";
+                    $conversion .= '    $result->'.$key.' = $k->'.$value.';' . "\n";
                 }
             }
 
-
             $generator->addMethod('convert',
-                'return Linq::select($data, function($k) use($additional){
-                    $result = new \\'. $schema->className .'();'.
+                'return Linq::select($data, function($k) use($additional){'. "\n".
+                '    $result = new \\'. $schema->className .'();'. "\n".
                     $conversion .
-                '   return $result;
-                });',
+                '    return $result;' . "\n".
+                '});',
                 ['$data, $additional']
             );
 
@@ -71,7 +70,7 @@ class ClassConvertGenerator
             '"' . $value->type . '", ' .
             '"' . $value->value . '"' .
             ");\n";
-        return '$result->'. $key . ' = $this->' . $key . '->convert($additional["'.$key.'"]);';
+        return '    $result->'. $key . ' = $this->' . $key . '->convert($additional["'.$key.'"]);';
     }
 
     private function generateKeyValue($generator, $key, $value){
@@ -83,6 +82,6 @@ class ClassConvertGenerator
             $value->type
         );
         $generator->_constructorBody .=
-            '$this->' . $key . " = new " . $generatedClassName . ";\n";
+            '    $this->' . $key . " = new " . $generatedClassName . ";\n";
     }
 }

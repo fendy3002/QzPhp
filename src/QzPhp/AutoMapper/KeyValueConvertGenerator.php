@@ -28,15 +28,15 @@ class KeyValueConvertGenerator
         $conversion = "";
         foreach($fields as $key => $value){
             $value = $value ?: $key;
-            $conversion .= '$result->'.$key.' = $k->'.$value.';' . "\n";
+            $conversion .= '    $result->'.$key.' = $k->'.$value.';' . "\n";
         }
 
         $generator->addMethod('convert',
-            'return Linq::select($data, function($k){
-                $result = (object)[];'.
-                $conversion .
-            '   return $result;
-            });',
+            'return Linq::select($data, function($k){' . "\n" .
+            '    $result = (object)[];'. "\n" .
+                $conversion . "\n" .
+            '    return $result;'. "\n" .
+            '});',
             ['$data']
         );
 

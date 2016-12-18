@@ -1,0 +1,42 @@
+namespace QzPhp\AutoMapper\Generated;
+
+use QzPhp\Linq;
+
+class Person1{
+    public function __construct() {
+        $this->phones = new \QzPhp\AutoMapper\ValueConverter("array", "phone");
+        
+    }
+
+
+    public function convert($data, $additional) {
+        return Linq::select($data, function($k) use($additional){
+            $result = new \Models\Person();
+            $result->name = $k->name;
+            $result->birth = $k->birth;
+            $result->id = $k->identitication_no;
+            $result->phones = $this->phones->convert($additional["phones"]);
+            return $result;
+        });
+    }
+}
+namespace QzPhp\AutoMapper\Generated;
+
+use QzPhp\Linq;
+
+class Address1{
+    public function __construct() {
+        
+    }
+
+
+    public function convert($data, $additional) {
+        return Linq::select($data, function($k) use($additional){
+            $result = new \Models\Address();
+            $result->streetName = $k->streetName;
+            $result->city = $k->city;
+            $result->country = $k->country;
+            return $result;
+        });
+    }
+}

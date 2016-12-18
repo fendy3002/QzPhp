@@ -7,8 +7,7 @@ class ConverterTest extends \Tests\TestCase
     {
         $schemaRaw = readfile(__DIR__ . '../../../storage/test/MapSchema/Schema.json');
         $schema = json_decode($schemaRaw);
-        print_r($schema);
-        /*
+
         $person = [
             (object)[
                 "name"=> "Luke",
@@ -48,6 +47,6 @@ class ConverterTest extends \Tests\TestCase
         ];
 
         $converter = new \QzPhp\AutoMapper\Converter($schema, 'Models\\Person');
-        $converter->convert($person, $additionals);*/
+        $converter->convert($person, $additionals);
     }
 }

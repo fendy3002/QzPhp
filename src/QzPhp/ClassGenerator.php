@@ -117,7 +117,7 @@ class ClassGenerator
         $methods = Linq::select($this->_methods, function($k) use($t1){
             $parameter = implode(', ', $k->parameters);
             $methodBodies = Linq::select(explode("\n", $k->methodBody), function($l) use ($t1){
-                return $t1 . trim($l);
+                return $t1 . $t1 . $l;
             });
             $methodBody = implode("\n", $methodBodies);
             return $t1 . "public function {$k->methodName}($parameter) {\n".
@@ -125,17 +125,24 @@ class ClassGenerator
             $t1 . "}\n";
         });
         $method = implode("\n", $methods);
+        $constructorBodies = Linq::select(explode("\n", $this->_constructorBody), function($k) use ($t1){
+            return $t1 . $t1 . $k;
+        });
+        $constructorBody = implode("\n", $constructorBodies);
 
         $classDefinition =
             "namespace {$this->_namespace};\n" .
+            "\n".
             "$use\n" .
+            "\n".
             "class {$this->_name}{\n".
             $t1 . "public function __construct($constructorParameter) {\n".
-                "$this->_constructorBody". "\n" .
+                "$constructorBody". "\n" .
             $t1 . "}\n".
             "$property\n".
-            "$method\n".
-            "}";
+            "\n".
+            "$method".
+            "}\n";
         return $classDefinition;
     }
 }

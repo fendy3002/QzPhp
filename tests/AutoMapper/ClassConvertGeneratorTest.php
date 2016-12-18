@@ -29,6 +29,7 @@ class ClassConvertGeneratorTest extends \Tests\TestCase
             ]
         ]);
         $result = $generator->generate();
+        file_put_contents(__DIR__ . '/generated1.txt', $result);
         foreach($result as $key=>$value){
             eval($value);
         }
@@ -61,7 +62,6 @@ class ClassConvertGeneratorTest extends \Tests\TestCase
             ]
         ];
 
-
         $generator = new \QzPhp\AutoMapper\ClassConvertGenerator((object)[
             "Person1" => (object)[
                 "className" => 'Models\Person',
@@ -80,6 +80,7 @@ class ClassConvertGeneratorTest extends \Tests\TestCase
             ]
         ]);
         $result = $generator->generate();
+        file_put_contents(__DIR__ . '/generated2.txt', $result);
         foreach($result as $key=>$value){
             eval($value);
         }
