@@ -7,7 +7,6 @@ class ClassConvertGeneratorSchemaTest extends \Tests\TestCase
     {
         $schemaRaw = file_get_contents(__DIR__ . '../../../storage/test/MapSchema/Converter.json');
         $schema = json_decode($schemaRaw);
-        print_r($schema);
 
         $generator = new \QzPhp\AutoMapper\ClassConvertGenerator($schema);
         $result = $generator->generate();

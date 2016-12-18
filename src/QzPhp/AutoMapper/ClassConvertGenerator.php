@@ -32,7 +32,7 @@ class ClassConvertGenerator
                             $conversion .= $this->generateValue($generator, $key, $value) . "\n";
                         }
                         else if(!empty($value->fields)){
-
+                            $conversion .= $this->generateKeyValue($generator, $schemaName, $key, $value) . "\n";
                         }
                         else if(!empty($value->schema)){
 
@@ -73,15 +73,17 @@ class ClassConvertGenerator
         return '    $result->'. $key . ' = $this->' . $key . '->convert($additional["'.$key.'"]);';
     }
 
-    private function generateKeyValue($generator, $key, $value){
+    private function generateKeyValue($generator, $schemaName, $key, $value){
         $generator->properties[] = 'private $' . $key . ';';
 
-        $generatedClassName = $this->generateClassName($this->className) . '_' . $key;
+        $generatedClassName = $schemaName . '_' . $key;
         $keyValueConvertGenerator = new KeyValueConvertGenerator(
             $generatedClassName,
-            $value->type
+            $value->type,
+            $value->fields
         );
         $generator->_constructorBody .=
-            '    $this->' . $key . " = new " . $generatedClassName . ";\n";
+            '$this->' . $key . " = new " . $generatedClassName . "();\n";
+        return '    $result->'. $key . ' = $this->' . $key . '->convert($additional["'.$key.'"]);';
     }
 }
