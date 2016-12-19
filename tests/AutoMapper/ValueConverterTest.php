@@ -1,7 +1,7 @@
 <?php
 namespace Tests\AutoMapper;
 
-class ConverterTest extends \Tests\TestCase
+class ValueConverterTest extends \Tests\TestCase
 {
     public function test()
     {

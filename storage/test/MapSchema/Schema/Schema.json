@@ -1,5 +1,5 @@
 {
-    "Models\\Person": {
+    "Generated\\Models\\Person": {
         "folder": "models",
         "fields":{
             "name": "string",
@@ -12,7 +12,7 @@
             "mother": "Models\\Person"
         }
     },
-    "Models\\Address": {
+    "Generated\\Models\\Address": {
         "folder": "models",
         "fields":{
             "streetName": "string",

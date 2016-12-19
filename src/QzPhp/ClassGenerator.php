@@ -108,9 +108,15 @@ class ClassGenerator
         });
         $use = implode("\n", $uses);
         $constructorParameter = implode(',', $this->_constructorParameters);
-        $properties = Linq::select($this->_properties, function($k){
+
+        $properties = Linq::select($this->_properties, function($k) use($t1){
             $documentation = !empty($k->documentation) ? $k->documentation . "\n" : "";
-            return $documentation . $k->value;
+            $documentations = Linq::select(explode("\n", $documentation), function($l) use ($t1){
+                return $t1 . $l;
+            });
+            $documentation = implode("\n", $documentations);
+            return $documentation .
+                $k->value;
         });
         $property = implode("\n", $properties);
 

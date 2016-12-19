@@ -17,6 +17,32 @@ class Generator
         $schemaFolder = Q::Z()->io()->combine($this->rootPath, $this->config['schema']);
         $converterFolder = Q::Z()->io()->combine($this->rootPath, $this->config['converter']);
 
+        $this->log->messageLn("START:\t generate schema from schema in folder: $schemaFolder");
+        foreach(scandir($schemaFolder) as $file){
+            if($file == '.' || $file == '..'){
+                continue;
+            }
+            else{
+                $schema = file_get_contents(Q::Z()->io()->combine($schemaFolder, $file));
+                $schema = json_decode($schema);
+
+                $classGenerator = new \QzPhp\AutoMapper\SchemaClassGenerator($schema);
+                $classDefinitions = $classGenerator->generate();
+                foreach($classDefinitions as $definition){
+                    $this->log->messageLn("CREATE:\t schema {$definition->schemaName}");
+                    $writeTo = Q::Z()->io()->combine(
+                        $this->rootPath,
+                        $this->config['destinationPath'],
+                        $definition->filePath);
+                    $content = "<?php\n" .
+                        $definition->definition;
+                    Q::Z()->io()->write($writeTo, $content);
+                    $this->log->messageLn("DONE:\t schema {$definition->schemaName} created");
+                }
+            }
+        }
+        $this->log->messageLn("DONE:\t generate converter done");
+
         $this->log->messageLn("START:\t generate converter from schema in folder: $converterFolder");
         foreach(scandir($converterFolder) as $file){
             if($file == '.' || $file == '..'){

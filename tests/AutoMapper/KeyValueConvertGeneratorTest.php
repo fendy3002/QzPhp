@@ -17,6 +17,7 @@ class KeyValueConvertGeneratorTest extends \Tests\TestCase
         ];
 
         $generator = new \QzPhp\AutoMapper\KeyValueConvertGenerator(
+            "QzPhp\\AutoMapper\\Generated",
             'Models_Person_educations',
             'array',
             [

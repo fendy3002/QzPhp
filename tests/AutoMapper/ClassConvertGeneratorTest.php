@@ -19,8 +19,9 @@ class ClassConvertGeneratorTest extends \Tests\TestCase
         ];
 
         $generator = new \QzPhp\AutoMapper\ClassConvertGenerator([
-            "Address1" => (object)[
+            "QzPhp\\AutoMapper\\Generated\\Address1" => (object)[
                 "className" => 'Models\Address',
+                "folder" => "generated",
                 "fields" => (object)[
                     "streetName"=> "street_name",
                     "city"=>"",
@@ -29,9 +30,9 @@ class ClassConvertGeneratorTest extends \Tests\TestCase
             ]
         ]);
         $result = $generator->generate();
-        file_put_contents(__DIR__ . '/generated1.txt', $result);
         foreach($result as $key=>$value){
-            eval($value);
+            file_put_contents(__DIR__ . '/generated1.txt', $value->definition, FILE_APPEND);
+            eval($value->definition);
         }
 
         $expected = [];
@@ -63,8 +64,9 @@ class ClassConvertGeneratorTest extends \Tests\TestCase
         ];
 
         $generator = new \QzPhp\AutoMapper\ClassConvertGenerator((object)[
-            "Person1" => (object)[
+            "QzPhp\\AutoMapper\\Generated\\Person1" => (object)[
                 "className" => 'Models\Person',
+                "folder" => "generated",
                 "fields" => (object)[
                     "name"=> "",
                     "birth"=> "",
@@ -80,9 +82,9 @@ class ClassConvertGeneratorTest extends \Tests\TestCase
             ]
         ]);
         $result = $generator->generate();
-        file_put_contents(__DIR__ . '/generated2.txt', $result);
         foreach($result as $key=>$value){
-            eval($value);
+            file_put_contents(__DIR__ . '/generated2.txt', $value->definition, FILE_APPEND);
+            eval($value->definition);
         }
 
         $additionals = [
