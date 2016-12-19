@@ -29,26 +29,25 @@ class ClassConvertGenerator
             $conversion = "";
             foreach($fields as $key => $value){
                 if(is_object($value)){
-                    if($value->type == "array"){
-                        if(!empty($value->value)){
-                            $conversion .= $this->generateValue($generator, $key, $value) . "\n";
-                        }
-                        else if(!empty($value->fields)){
-                            $keyValue = $this->generateKeyValue($generator, $schemaNamespace, $schemaClassName, $key, $value);
-                            $conversion .= $keyValue->statement . "\n";
-                            $filePath = Q::Z()->io()->combine($schema->folder, $keyValue->className . ".php");
-                            $result[$keyValue->className] = (object)[
-                                "filePath" => $filePath,
-                                "definition" => $keyValue->definition,
-                                'schemaName' => $schemaNamespace . "\\" . $keyValue->className
-                            ];
-                        }
-                        else if(!empty($value->schema)){
-                            $conversion .= $this->generateSchema($generator, $key, $value) . "\n";
-                        }
+                    if(!empty($value->value)){
+                        $conversion .= $this->generateValue($generator, $key, $value) . "\n";
+                        $generator->addProperty("public $" . $key . ";");
                     }
-                    else if($value->type == "object"){
+                    else if(!empty($value->fields)){
+                        $keyValue = $this->generateKeyValue($generator, $schemaNamespace, $schemaClassName, $key, $value);
+                        $conversion .= $keyValue->statement . "\n";
+                        $filePath = Q::Z()->io()->combine($schema->folder, $keyValue->className . ".php");
+                        $result[$keyValue->className] = (object)[
+                            "filePath" => $filePath,
+                            "definition" => $keyValue->definition,
+                            'schemaName' => $schemaNamespace . "\\" . $keyValue->className
+                        ];
 
+                        $generator->addProperty("public $" . $key . ";");
+                    }
+                    else if(!empty($value->schema)){
+                        $conversion .= $this->generateSchema($generator, $key, $value) . "\n";
+                        $generator->addProperty('public $_' . $key . ";");
                     }
                 }
                 else{
@@ -56,6 +55,12 @@ class ClassConvertGenerator
                     $conversion .= '    $result->'.$key.' = $k->'.$value.';' . "\n";
                 }
             }
+            $generator->addMethod('convertOne',
+                '$results = $this->convert([$data], $additional);' . "\n" .
+                '$result = $results[0];' . "\n" .
+                'return $result;',
+                ['$data', '$additional = []']
+            );
 
             $generator->addMethod('convert',
                 'return Linq::select($data, function($k) use($additional){'. "\n".
@@ -119,12 +124,26 @@ class ClassConvertGenerator
     }
 
     private function generateSchema($generator, $key, $value){
-        $generator->_constructorBody .=
-            '$this->' . $key . " = new \\{$value->schema}();\n";
+        $generator->addMethod(
+            $key . '_',
+            '$this->_' . $key . ' = $this->_' . $key . " ?: new \\{$value->schema}();\n" .
+            'return $this->_' . $key . ';',
+            []);
+
         $additionalVar = '$additional["' . $key . '_additional"]';
         $statement = '';
         $statement .= '$_additional = !empty(' . $additionalVar . ') ? ' . $additionalVar . ' : [];' . "\n";
-        $statement .= '$result->'. $key . ' = $this->' . $key . '->convert($mapped, $_additional);';
+        if($value->type == "array"){
+            $statement .= '$result->'. $key . ' = $this->' . $key . '_()->convert($mapped, $_additional);';
+        }
+        else if($value->type == "object"){
+            $statement .= 'if(count($mapped) > 0){' . "\n";
+            $statement .= '    $result->'. $key . ' = $this->' . $key . '_()->convertOne($mapped[0], $_additional);' . "\n";
+            $statement .= '}' . "\n";
+            $statement .= 'else{' . "\n";
+            $statement .= '    $result->'. $key . ' = NULL;' . "\n";
+            $statement .= '}' . "\n";
+        }
 
         $methodBody = $this->generateArray(
             $key,
@@ -152,7 +171,7 @@ class ClassConvertGenerator
             $methodBody .= $t . $t . '});'. "\n";
         }
         else{
-            $methodBody .= '$mapped = $additional["' . $key . '"];'. "\n";
+            $methodBody .= $t . $t . '$mapped = $additional["' . $key . '"];'. "\n";
         }
         $statement = implode("\n",
             Linq::select(explode("\n", $statement), function($k){

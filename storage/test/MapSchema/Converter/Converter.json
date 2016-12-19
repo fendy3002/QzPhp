@@ -31,9 +31,16 @@
                     "id": "person_id"
                 }
             },
+            "experiences": {
+                "type": "array",
+                "fields": {
+                    "year": "",
+                    "organization": ""
+                }
+            },
             "mother": {
                 "type": "object",
-                "schema": "Models\\Person",
+                "schema": "Generated\\Converter\\Person1",
                 "key": {
                     "mother_id": "id"
                 }

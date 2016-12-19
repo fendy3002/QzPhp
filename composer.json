@@ -16,7 +16,10 @@
         "psr-4": {"QzPhp\\": "src/QzPhp"}
     },
     "autoload-dev": {
-        "psr-4": {"Models\\": "models"},
+        "psr-4": {
+            "Models\\": "models",
+            "Generated\\": "generated"
+        },
         "classmap": [
             "tests/TestCase.php"
         ]
