@@ -1,6 +1,7 @@
 {
-    "Person1": {
+    "Generated\\Converter\\Person1": {
         "className": "Models\\Person",
+        "folder": "converter",
         "fields":{
             "name": "",
             "birth": "",
@@ -39,8 +40,9 @@
             }
         }
     },
-    "Address1": {
+    "Generated\\Converter\\Address1": {
         "className": "Models\\Address",
+        "folder": "converter",
         "fields":{
             "streetName": "",
             "city":"",

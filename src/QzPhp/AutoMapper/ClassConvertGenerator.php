@@ -17,9 +17,11 @@ class ClassConvertGenerator
             $className = $schema->className;
             $fields = $schema->fields;
 
-            $generator = new \QzPhp\ClassGenerator($schemaName);
+            $schemaNamespace = substr($schemaName, 0, strrpos($schemaName, "\\"));
+            $schemaClassName = substr($schemaName, strrpos($schemaName, "\\") + 1);
+            $generator = new \QzPhp\ClassGenerator($schemaClassName);
 
-            $generator->setNamespace('QzPhp\AutoMapper\Generated')
+            $generator->setNamespace($schemaNamespace)
                 ->setImports([
                     'QzPhp\Linq'
                 ]);
@@ -57,7 +59,12 @@ class ClassConvertGenerator
                 ['$data, $additional']
             );
 
-            $result[$schemaName] = $generator->generateClassDefinition();
+            $filePath = Q::Z()->io()->combine($schema->folder, $schemaClassName . ".php");
+            $result[$schemaName] = (object)[
+                "filePath" => $filePath,
+                "definition" => $generator->generateClassDefinition(),
+                'schemaName' => $schemaName
+            ];
         }
 
         return $result;

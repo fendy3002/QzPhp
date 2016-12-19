@@ -2,6 +2,11 @@
 namespace QzPhp;
 
 class IO{
+    /**
+     * Combine physical path
+     * @var string[] Paths to combiine (unlimited args)
+     * @return string Combined path
+     */
     public function combine(){
         $args = func_get_args();
         if(empty($args) || count($args) == 0){
@@ -18,6 +23,33 @@ class IO{
         return $result;
     }
 
+    /**
+     * Same with file_put_contents, but create folder beforehand if not exists
+     * @param  string  $filePath Physical file path
+     * @param  string  $content  Content to write
+     * @param  integer $option  file_put_contents options
+     * @return void
+     */
+    public function write($filePath, $content, $option = NULL){
+        $dir = $this->directoryOf($filePath);
+        if(!file_exists($dir)){
+            mkdir($dir, 0777, true);
+        }
+
+        if(empty($option)){
+            file_put_contents($filePath, $content);
+        }
+        else{
+            file_put_contents($filePath, $content, $option);
+        }
+    }
+
+    /**
+     * Zip files
+     * @param  string[] $source List of file names to zip
+     * @param  string $saveAs Filepath to write
+     * @return void
+     */
     public function zip($source, $saveAs){
         // Get real path for our folder
         $rootPath = realpath($source);
@@ -51,6 +83,12 @@ class IO{
         $zip->close();
     }
 
+    /**
+     * Extract zip file
+     * @param  string $zipFile   path to zip file
+     * @param  string $extractTo path of extracted files
+     * @return void
+     */
     public function unzip($zipFile, $extractTo = NULL){
         if(empty($extractTo) || $extractTo == ''){
             $path_parts = pathinfo($file);
