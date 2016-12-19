@@ -41,7 +41,7 @@ class Generator
                 }
             }
         }
-        $this->log->messageLn("DONE:\t generate converter done");
+        $this->log->messageLn("DONE:\t generate schema done");
 
         $this->log->messageLn("START:\t generate converter from schema in folder: $converterFolder");
         foreach(scandir($converterFolder) as $file){

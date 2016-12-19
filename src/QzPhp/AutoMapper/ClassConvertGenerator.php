@@ -44,7 +44,7 @@ class ClassConvertGenerator
                             ];
                         }
                         else if(!empty($value->schema)){
-
+                            $conversion .= $this->generateSchema($generator, $key, $value) . "\n";
                         }
                     }
                     else if($value->type == "object"){
@@ -63,7 +63,7 @@ class ClassConvertGenerator
                     $conversion .
                 '    return $result;' . "\n".
                 '});',
-                ['$data, $additional']
+                ['$data', '$additional = []']
             );
 
             $filePath = Q::Z()->io()->combine($schema->folder, $schemaClassName . ".php");
@@ -84,10 +84,12 @@ class ClassConvertGenerator
             '"' . $value->type . '", ' .
             '"' . $value->value . '"' .
             ");\n";
-        $methodBody = '';
-        $methodBody .= '    if(!empty($additional["' . $key . '"]) && count($additional["' . $key . '"]) > 0){' . "\n";
-        $methodBody .= '        $result->'. $key . ' = $this->' . $key . '->convert($additional["'.$key.'"]);' . "\n";
-        $methodBody .= '    }';
+
+        $methodBody = $this->generateArray(
+            $key,
+            $value,
+            '$result->'. $key . ' = $this->' . $key . '->convert($mapped);'
+        );
         return $methodBody;
     }
 
@@ -104,14 +106,61 @@ class ClassConvertGenerator
         $generator->_constructorBody .=
             '$this->' . $key . " = new \\" . $nameSpace . "\\" . $generatedClassName . "();\n";
 
-        $methodBody = '';
-        $methodBody .= '    if(!empty($additional["' . $key . '"]) && count($additional["' . $key . '"]) > 0){' . "\n";
-        $methodBody .= '        $result->'. $key . ' = $this->' . $key . '->convert($additional["'.$key.'"]);' . "\n";
-        $methodBody .= '    }';
+        $methodBody = $this->generateArray(
+            $key,
+            $value,
+            '$result->'. $key . ' = $this->' . $key . '->convert($mapped);'
+        );
         return (object)[
             'className' => $generatedClassName,
             'definition' => $keyValueConvertGenerator->generate(),
             'statement' => $methodBody
         ];
+    }
+
+    private function generateSchema($generator, $key, $value){
+        $generator->_constructorBody .=
+            '$this->' . $key . " = new \\{$value->schema}();\n";
+        $additionalVar = '$additional["' . $key . '_additional"]';
+        $statement = '';
+        $statement .= '$_additional = !empty(' . $additionalVar . ') ? ' . $additionalVar . ' : [];' . "\n";
+        $statement .= '$result->'. $key . ' = $this->' . $key . '->convert($mapped, $_additional);';
+
+        $methodBody = $this->generateArray(
+            $key,
+            $value,
+            $statement
+        );
+        return $methodBody;
+    }
+
+    private function generateArray($key, $value, $statement){
+        $t = "    ";
+        $methodBody = '';
+        $methodBody .= '    if(!empty($additional["' . $key . '"]) && count($additional["' . $key . '"]) > 0){' . "\n";
+        if(!empty($value->key)){
+            $conversions = [];
+            foreach($value->key as $source => $converted){
+                $conversions[] = $t . $t . $t . $t . '$result->' . $source . ' == $n->' . $converted;
+            }
+
+            $methodBody .= $t . $t .'$mapped = Linq::where($additional["' . $key . '"], function($n) use($result) {'. "\n";
+            $methodBody .= $t . $t . $t . 'return '. "\n";
+            $methodBody .= implode(" && " . "\n", $conversions);
+
+            $methodBody .= ';'. "\n";
+            $methodBody .= $t . $t . '});'. "\n";
+        }
+        else{
+            $methodBody .= '$mapped = $additional["' . $key . '"];'. "\n";
+        }
+        $statement = implode("\n",
+            Linq::select(explode("\n", $statement), function($k){
+                return '        ' . $k;
+            })
+        );
+        $methodBody .= $statement . "\n";
+        $methodBody .= '    }';
+        return $methodBody;
     }
 }

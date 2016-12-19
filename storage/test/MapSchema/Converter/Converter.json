@@ -9,7 +9,7 @@
 
             "addresses": {
                 "type": "array",
-                "schema": "Address1",
+                "schema": "Generated\\Converter\\Address1",
                 "key": {
                     "id": "person_id"
                 }
@@ -42,7 +42,7 @@
     },
     "Generated\\Converter\\Address1": {
         "className": "Models\\Address",
-        "folder": "converter",
+        "folder": "Converter",
         "fields":{
             "streetName": "",
             "city":"",
