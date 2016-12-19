@@ -90,10 +90,24 @@ class ClassConvertGenerator
             '"' . $value->value . '"' .
             ");\n";
 
+        $statement = '';
+        if($value->type == "array"){
+            $statement .= '$result->'. $key . ' = $this->' . $key . '->convert($mapped);';
+        }
+        else if($value->type == "object"){
+            $statement .= 'if(count($mapped) > 0){' . "\n";
+            $statement .= '    $valueMaps = $this->' . $key . '->convert($mapped);' . "\n";
+            $statement .= '    $result->'. $key . ' = $valueMaps[0];' . "\n";
+            $statement .= '}' . "\n";
+            $statement .= 'else{' . "\n";
+            $statement .= '    $result->'. $key . ' = NULL;' . "\n";
+            $statement .= '}';
+        }
+
         $methodBody = $this->generateArray(
             $key,
             $value,
-            '$result->'. $key . ' = $this->' . $key . '->convert($mapped);'
+            $statement
         );
         return $methodBody;
     }
@@ -111,10 +125,23 @@ class ClassConvertGenerator
         $generator->_constructorBody .=
             '$this->' . $key . " = new \\" . $nameSpace . "\\" . $generatedClassName . "();\n";
 
+        $statement = '';
+        if($value->type == "array"){
+            $statement .= '$result->'. $key . ' = $this->' . $key . '->convert($mapped);';
+        }
+        else if($value->type == "object"){
+            $statement .= 'if(count($mapped) > 0){' . "\n";
+            $statement .= '    $valueMaps = $this->' . $key . '->convert($mapped);' . "\n";
+            $statement .= '    $result->'. $key . ' = $valueMaps[0];' . "\n";
+            $statement .= '}' . "\n";
+            $statement .= 'else{' . "\n";
+            $statement .= '    $result->'. $key . ' = NULL;' . "\n";
+            $statement .= '}';
+        }
         $methodBody = $this->generateArray(
             $key,
             $value,
-            '$result->'. $key . ' = $this->' . $key . '->convert($mapped);'
+            $statement
         );
         return (object)[
             'className' => $generatedClassName,
@@ -142,7 +169,7 @@ class ClassConvertGenerator
             $statement .= '}' . "\n";
             $statement .= 'else{' . "\n";
             $statement .= '    $result->'. $key . ' = NULL;' . "\n";
-            $statement .= '}' . "\n";
+            $statement .= '}';
         }
 
         $methodBody = $this->generateArray(

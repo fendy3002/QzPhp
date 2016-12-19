@@ -8,7 +8,9 @@
 
             "addresses": "Models\\Address[]",
             "phones": "string[]",
+            "defaultPhone": "string",
             "educations": "object[]",
+            "defaultEducation" : "object",
             "mother": "Models\\Person"
         }
     },

@@ -30,7 +30,20 @@ class GeneratedConverter extends \Tests\TestCase
         $phones = [
             (object)[
                 "person_id" => "003",
-                "phone"=> "0001111000"
+                "phone"=> "0001111000",
+                "isDefault" => false
+            ],
+            (object)[
+                "person_id" => "003",
+                "phone"=> "0001111011",
+                "isDefault" => true
+            ]
+        ];
+        $defaultPhone = [
+            (object)[
+                "person_id" => "003",
+                "phone"=> "0001111011",
+                "isDefault" => true
             ]
         ];
         $educations = [
@@ -43,7 +56,20 @@ class GeneratedConverter extends \Tests\TestCase
         $experiences = [
             (object)[
                 "year"=> "2014",
-                "organization"=> "Pod racer"
+                "organization"=> "Pod racer",
+                "isDefault" => false
+            ],
+            (object)[
+                "year"=> "2015",
+                "organization"=> "Rebellion",
+                "isDefault" => true
+            ]
+        ];
+        $defaultExperiences = [
+            (object)[
+                "year"=> "2015",
+                "organization"=> "Rebellion",
+                "isDefault" => true
             ]
         ];
         $additionals = [
@@ -51,7 +77,9 @@ class GeneratedConverter extends \Tests\TestCase
             "phones" => $phones,
             "addresses" => $addresses,
             "educations" => $educations,
-            "experiences" => $experiences
+            "experiences" => $experiences,
+            "defaultPhone" => $defaultPhone,
+            "defaultExperiences" => $defaultExperiences
         ];
 
         $converter = new \Generated\Converter\Person1();
