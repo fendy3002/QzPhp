@@ -1,7 +1,7 @@
 {
     "Generated\\Converter\\Person1": {
         "className": "Models\\Person",
-        "folder": "converter",
+        "folder": "Converter",
         "fields":{
             "name": "",
             "birth": "",

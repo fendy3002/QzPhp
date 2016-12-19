@@ -84,7 +84,11 @@ class ClassConvertGenerator
             '"' . $value->type . '", ' .
             '"' . $value->value . '"' .
             ");\n";
-        return '    $result->'. $key . ' = $this->' . $key . '->convert($additional["'.$key.'"]);';
+        $methodBody = '';
+        $methodBody .= '    if(!empty($additional["' . $key . '"]) && count($additional["' . $key . '"]) > 0){' . "\n";
+        $methodBody .= '        $result->'. $key . ' = $this->' . $key . '->convert($additional["'.$key.'"]);' . "\n";
+        $methodBody .= '    }';
+        return $methodBody;
     }
 
     private function generateKeyValue($generator, $nameSpace, $className, $key, $value){
@@ -99,10 +103,15 @@ class ClassConvertGenerator
         );
         $generator->_constructorBody .=
             '$this->' . $key . " = new \\" . $nameSpace . "\\" . $generatedClassName . "();\n";
+
+        $methodBody = '';
+        $methodBody .= '    if(!empty($additional["' . $key . '"]) && count($additional["' . $key . '"]) > 0){' . "\n";
+        $methodBody .= '        $result->'. $key . ' = $this->' . $key . '->convert($additional["'.$key.'"]);' . "\n";
+        $methodBody .= '    }';
         return (object)[
             'className' => $generatedClassName,
             'definition' => $keyValueConvertGenerator->generate(),
-            'statement' => '    $result->'. $key . ' = $this->' . $key . '->convert($additional["'.$key.'"]);'
+            'statement' => $methodBody
         ];
     }
 }

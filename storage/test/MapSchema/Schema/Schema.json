@@ -1,6 +1,6 @@
 {
     "Generated\\Models\\Person": {
-        "folder": "models",
+        "folder": "Models",
         "fields":{
             "name": "string",
             "birth": "datetime",
