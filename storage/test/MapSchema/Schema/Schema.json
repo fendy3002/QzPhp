@@ -1,5 +1,6 @@
 {
     "Models\\Person": {
+        "folder": "models",
         "fields":{
             "name": "string",
             "birth": "datetime",
@@ -12,6 +13,7 @@
         }
     },
     "Models\\Address": {
+        "folder": "models",
         "fields":{
             "streetName": "string",
             "city": "string",

@@ -34,7 +34,14 @@ class ClassConvertGenerator
                             $conversion .= $this->generateValue($generator, $key, $value) . "\n";
                         }
                         else if(!empty($value->fields)){
-                            $conversion .= $this->generateKeyValue($generator, $schemaName, $key, $value) . "\n";
+                            $keyValue = $this->generateKeyValue($generator, $schemaNamespace, $schemaClassName, $key, $value);
+                            $conversion .= $keyValue->statement . "\n";
+                            $filePath = Q::Z()->io()->combine($schema->folder, $keyValue->className . ".php");
+                            $result[$keyValue->className] = (object)[
+                                "filePath" => $filePath,
+                                "definition" => $keyValue->definition,
+                                'schemaName' => $schemaNamespace . "\\" . $keyValue->className
+                            ];
                         }
                         else if(!empty($value->schema)){
 
@@ -80,17 +87,22 @@ class ClassConvertGenerator
         return '    $result->'. $key . ' = $this->' . $key . '->convert($additional["'.$key.'"]);';
     }
 
-    private function generateKeyValue($generator, $schemaName, $key, $value){
+    private function generateKeyValue($generator, $nameSpace, $className, $key, $value){
         $generator->properties[] = 'private $' . $key . ';';
 
-        $generatedClassName = $schemaName . '_' . $key;
+        $generatedClassName = $className . '_' . $key;
         $keyValueConvertGenerator = new KeyValueConvertGenerator(
+            $nameSpace,
             $generatedClassName,
             $value->type,
             $value->fields
         );
         $generator->_constructorBody .=
-            '$this->' . $key . " = new " . $generatedClassName . "();\n";
-        return '    $result->'. $key . ' = $this->' . $key . '->convert($additional["'.$key.'"]);';
+            '$this->' . $key . " = new \\" . $nameSpace . "\\" . $generatedClassName . "();\n";
+        return (object)[
+            'className' => $generatedClassName,
+            'definition' => $keyValueConvertGenerator->generate(),
+            'statement' => '    $result->'. $key . ' = $this->' . $key . '->convert($additional["'.$key.'"]);'
+        ];
     }
 }

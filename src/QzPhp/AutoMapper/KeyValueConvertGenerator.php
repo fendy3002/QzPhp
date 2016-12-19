@@ -6,11 +6,13 @@ use QzPhp\Linq;
 
 class KeyValueConvertGenerator
 {
-    public function __construct($className, $type, $fields){
+    public function __construct($nameSpace, $className, $type, $fields){
+        $this->nameSpace = $nameSpace;
         $this->className = $className;
         $this->type = $type;
         $this->fields = $fields;
     }
+    public $nameSpace;
     public $type;
     public $fields;
     public $className;
@@ -19,7 +21,7 @@ class KeyValueConvertGenerator
         $fields = $this->fields;
         $generator = new \QzPhp\ClassGenerator($this->className);
 
-        $generator->setNamespace('QzPhp\AutoMapper\Generated')
+        $generator->setNamespace($this->nameSpace)
             ->setImports([
                 'QzPhp\Linq',
                 'QzPhp\AutoMapper'
