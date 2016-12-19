@@ -13,7 +13,7 @@
         }
     },
     "Generated\\Models\\Address": {
-        "folder": "models",
+        "folder": "Models",
         "fields":{
             "streetName": "string",
             "city": "string",
