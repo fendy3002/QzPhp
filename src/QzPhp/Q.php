@@ -97,4 +97,16 @@ class Q{
         $dbh = new \PDO($dsn, $dbConf['user'], $dbConf['password']);
         return new \QzPhp\QDB($dbh, $logObj);
     }
+
+    public function assign($obj, $attr){
+        foreach($attr as $key=>$value){
+            if(property_exists($obj, $key)){
+                $obj->$key = $value;
+            }
+            else{
+                throw new \Exception("Property " . $key . " not exists in class: " . get_class($obj));
+            }
+        }
+        return $obj;
+    }
 }
