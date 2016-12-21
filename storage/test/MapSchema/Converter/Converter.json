@@ -11,21 +11,21 @@
                 "type": "array",
                 "schema": "Generated\\Converter\\Address1",
                 "key": {
-                    "id": "person_id"
+                    "identitication_no": "person_id"
                 }
             },
             "phones": {
                 "type": "array",
                 "value": "phone",
                 "key": {
-                    "id": "person_id"
+                    "identitication_no": "person_id"
                 }
             },
             "defaultPhone": {
                 "type": "object",
                 "value": "phone",
                 "key": {
-                    "id": "person_id"
+                    "identitication_no": "person_id"
                 }
             },
             "educations": {
@@ -35,7 +35,7 @@
                     "organization": ""
                 },
                 "key": {
-                    "id": "person_id"
+                    "identitication_no": "person_id"
                 }
             },
             "defaultEducation": {
@@ -45,7 +45,7 @@
                     "organization": ""
                 },
                 "key": {
-                    "id": "person_id"
+                    "identitication_no": "person_id"
                 }
             },
             "experiences": {
@@ -59,7 +59,7 @@
                 "type": "object",
                 "schema": "Generated\\Converter\\Person1",
                 "key": {
-                    "mother_id": "id"
+                    "mother_id": "identitication_no"
                 }
             }
         }

@@ -187,10 +187,10 @@ class ClassConvertGenerator
         if(!empty($value->key)){
             $conversions = [];
             foreach($value->key as $source => $converted){
-                $conversions[] = $t . $t . $t . $t . '$result->' . $source . ' == $n->' . $converted;
+                $conversions[] = $t . $t . $t . $t . '$k->' . $source . ' == $n->' . $converted;
             }
 
-            $methodBody .= $t . $t .'$mapped = Linq::where($additional["' . $key . '"], function($n) use($result) {'. "\n";
+            $methodBody .= $t . $t .'$mapped = Linq::where($additional["' . $key . '"], function($n) use($k) {'. "\n";
             $methodBody .= $t . $t . $t . 'return '. "\n";
             $methodBody .= implode(" && " . "\n", $conversions);
 
