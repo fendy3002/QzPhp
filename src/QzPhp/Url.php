@@ -18,12 +18,15 @@ class Url{
         $content = curl_exec ($ch);
         $code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 
+        $error = curl_error($ch);
+        $errno = curl_errno($ch);
+
         curl_close ($ch);
         return (object)[
             'content' => $content,
             'code' => $code,
-            'error' => curl_error($ch),
-            'errno' => curl_errno($ch)
+            'error' => $error,
+            'errno' => $errno
         ];
     }
 
@@ -40,12 +43,16 @@ class Url{
 
         $content = curl_exec ($ch);
         $code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+
+        $error = curl_error($ch);
+        $errno = curl_errno($ch);
+        
         curl_close ($ch);
         return (object)[
             'content' => $content,
             'code' => $code,
-            'error' => curl_error($ch),
-            'errno' => curl_errno($ch)
+            'error' => $error,
+            'errno' => $errno
         ];
     }
 
