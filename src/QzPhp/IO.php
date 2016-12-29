@@ -105,11 +105,21 @@ class IO{
         }
     }
 
+    /**
+     * Get directory of file
+     * @param  string   $file   file path
+     * @return string           directory path of file
+     */
     public function directoryOf($file){
         $path_parts = pathinfo($file);
         return $path_parts['dirname'];
     }
 
+    /**
+     * Delete all content in folder
+     * @param  string $path folder path
+     * @return void
+     */
     public function deleteFolderContent($path){
         $path = rtrim($path, DIRECTORY_SEPARATOR);
         $files = glob($path . DIRECTORY_SEPARATOR . '*' ); // get all file names
