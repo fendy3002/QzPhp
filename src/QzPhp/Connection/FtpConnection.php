@@ -31,6 +31,12 @@ class FtpConnection
     public $port;
     public $timeout;
 
+    /**
+     * Send file through ftp connection
+     * @param  string $localFile source file
+     * @param  string $toFile    destination file name
+     * @return QzPhp\Models\Result
+     */
     public function send($localFile, $toFile = NULL){
         $conn = ftp_connect ($this->server, $this->port, $this->timeout);
         $login_result = ftp_login($conn, $this->user, $this->password);
@@ -39,6 +45,10 @@ class FtpConnection
         $uploadResult = ftp_put($conn, $toFile, $localFile, FTP_ASCII);
         ftp_close($conn);
 
-        return $uploadResult;
+        return \QzPhp\Q::Z()->result([
+            'success' => $uploadResult,
+            'message' => 'sent to ftp path: ' . $toFile,
+            'data' => $toFile
+        ]);
     }
 }

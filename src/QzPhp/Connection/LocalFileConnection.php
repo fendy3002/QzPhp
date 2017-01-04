@@ -11,6 +11,12 @@ class LocalFileConnection
     }
     public $path;
 
+    /**
+     * Send file through local connection (copy)
+     * @param  string $localFile source file
+     * @param  string $toFile    destination file name
+     * @return QzPhp\Models\Result
+     */
     public function send($localFile, $toFile = NULL){
         $path = rtrim($this->path, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR;
         $toFile = !empty($toFile) ? $toFile : $path . basename($localFile);
@@ -20,5 +26,11 @@ class LocalFileConnection
         }
 
         copy($localFile, $toFile);
+
+        return \QzPhp\Q::Z()->result([
+            'success' => true,
+            'message' => 'sent to local path: ' . $toFile,
+            'data' => $toFile
+        ]);
     }
 }
