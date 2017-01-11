@@ -98,6 +98,12 @@ class Q{
             $dbConf['password'], $dbConf['database']);
         return new \QzPhp\QDB($dbh, $logObj);
     }
+    public static function mySqlDb($dbConf, $logObj = NULL){
+        $dbGen = new \QzPhp\DBGenerator();
+        $dbh = $dbGen->get($dbConf['host'], $dbConf['user'],
+            $dbConf['password'], $dbConf['database']);
+        return new \QzPhp\MySqlQDB($dbh, $logObj);
+    }
 
     public function assign($obj, $attr){
         foreach($attr as $key=>$value){
