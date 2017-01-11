@@ -93,8 +93,9 @@ class Q{
 	}
 
     public static function db($dbConf, $logObj = NULL){
-        $dsn = 'mysql:dbname=' . $dbConf['database'] . ';host=' . $dbConf['host'];
-        $dbh = new \PDO($dsn, $dbConf['user'], $dbConf['password']);
+        $dbGen = new \QzPhp\DBGenerator();
+        $dbh = $dbGen->get($dbConf['host'], $dbConf['user'],
+            $dbConf['password'], $dbConf['database']);
         return new \QzPhp\QDB($dbh, $logObj);
     }
 
