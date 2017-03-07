@@ -10,7 +10,9 @@ class Q{
         }
         return self::$instance;
     }
-
+    public function arr($arr){
+        return new Arr($arr);
+    }
     public function string(){
         return new String();
     }
