@@ -43,6 +43,23 @@ class ReadFileByLinesTest extends \Tests\TestCase
         $this->assertEquals($expectedContent, $result->content);
     }
 
+    public function testOver()
+    {
+        $fileReader = new \QzPhp\FileReader();
+        $d = DIRECTORY_SEPARATOR;
+        $filepath = __DIR__ . $d . '..' . $d . '..' . $d . 'storage' . $d . 'test' . $d . 'file.txt';
+
+        $startPos = 0;
+        $limit = 1000;
+        $result = $fileReader->readFileByLines($filepath, $startPos, $limit);
+
+        $expectedPos = 712;
+        $expectedContent = file_get_contents($filepath);
+        $this->assertEquals($expectedPos, $result->pos);
+        $this->assertEquals($expectedContent, $result->content);
+    }
+
+
     public function testR()
     {
         $fileReader = new \QzPhp\FileReader();

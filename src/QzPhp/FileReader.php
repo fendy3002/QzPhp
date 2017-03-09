@@ -30,7 +30,8 @@ class FileReader{
         $line = 0;
         $pos = $startPos;
         $message = '';
-        while($line < $limit) {
+        $fileSize = filesize($filepath);
+        while($line < $limit && $pos <= $fileSize) {
             if(fseek($fp, $pos, SEEK_SET) == 0){
                 $t = fgetc($fp);
                 $pos = $pos + 1;
