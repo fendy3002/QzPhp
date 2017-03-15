@@ -2,9 +2,9 @@
 namespace QzPhp\Logs;
 
 class EmptyLog implements ILog {
-    public function message($message, $params = NULL){
+    public function message($message){
     }
-    public function messageln($message = NULL, $params = NULL){
+    public function messageln($message = NULL){
     }
     public function object ($object){
     }

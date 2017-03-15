@@ -2,13 +2,13 @@
 namespace QzPhp\Logs;
 
 class ConsoleLog implements ILog {
-    public function message($message, $params = NULL){
-        printf($message, $params);
+    public function message($message){
+        echo $message;
     }
-    public function messageln($message = NULL, $params = NULL){
-        printf($message . "\n", $params);
+    public function messageln($message = NULL){
+        echo $message . "\n";
     }
-    public function object ($object){
+    public function object($object){
         var_dump($object);
     }
     public function exception($ex){

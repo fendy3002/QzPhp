@@ -3,12 +3,12 @@ namespace QzPhp\Logs;
 use Log;
 class LaravelLog implements ILog {
 
-    public function message($message, $params = NULL){
-        $add = sprintf($message, $params);
+    public function message($message){
+        $add = $message;
         Log::debug($add);
     }
-    public function messageln($message = NULL, $params = NULL){
-        $add = sprintf($message. "\n", $params);
+    public function messageln($message = NULL){
+        $add = $message. "\n";
         Log::debug($add);
     }
     public function object ($object){

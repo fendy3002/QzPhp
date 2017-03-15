@@ -8,12 +8,12 @@ class FileLog implements ILog {
     private $filePath = '';
     public $dateFormat = 'Y-m-d H:i:s';
 
-    public function message($message, $params = NULL){
-        $add = sprintf($message, $params);
+    public function message($message){
+        $add = $message;
         $this->write($add);
     }
-    public function messageln($message = NULL, $params = NULL){
-        $add = sprintf($message. "\n", $params);
+    public function messageln($message = NULL){
+        $add = $message. "\n";
         $this->write($add);
     }
     public function object ($object){

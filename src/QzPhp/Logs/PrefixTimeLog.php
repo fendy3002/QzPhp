@@ -10,11 +10,11 @@ class PrefixTimeLog implements ILog {
     private $inner;
     public $prefix = '';
     private $format = '';
-    public function message($message, $params = NULL){
-        $this->inner->message($this->getPrefix() . ' ' . $message, $params);
+    public function message($message){
+        $this->inner->message($this->getPrefix() . ' ' . $message);
     }
-    public function messageln($message = NULL, $params = NULL){
-        $this->inner->messageln($this->getPrefix() . ' ' . $message, $params);
+    public function messageln($message = NULL){
+        $this->inner->messageln($this->getPrefix() . ' ' . $message);
     }
     public function object ($object){
         $this->inner->messageln($this->getPrefix());
