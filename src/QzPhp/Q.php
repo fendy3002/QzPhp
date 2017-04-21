@@ -19,6 +19,9 @@ class Q{
     public function io(){
         return new IO();
     }
+    public function geo(){
+        return new Geo();
+    }
 
     public function url(){
         return new Url();
