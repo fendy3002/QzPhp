@@ -74,9 +74,14 @@ class Url{
 
         curl_exec($ch);
         $code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        $error = curl_error($ch);
+        $errno = curl_errno($ch);
+
         curl_close ($ch);
         return (object)[
-            'code' => $code
+            'code' => $code,
+            'error' => $error,
+            'errno' => $errno
         ];
     }
 }
