@@ -121,4 +121,8 @@ class Q{
         }
         return $obj;
     }
+
+    public function boolToYesNo($context){
+        return new BoolToYesNo($context);
+    }
 }
