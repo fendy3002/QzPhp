@@ -2,7 +2,7 @@
 
 namespace Tests\Connection;
 
-class FtpConnectionTest extends \TestCase
+class FtpConnectionTest extends \Tests\TestCase
 {
     public function testFtp()
     {
