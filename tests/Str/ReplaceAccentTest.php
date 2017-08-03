@@ -6,7 +6,7 @@ class ReplaceAccentTest extends \Tests\TestCase
 {
     public function testReplace()
     {
-        $string = new \QzPhp\String();
+        $string = new \QzPhp\Str();
         $source = 'Heßdorf';
 
         $result = $string->replaceAccent($source);

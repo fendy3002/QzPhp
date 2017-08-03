@@ -6,7 +6,7 @@ class ReplaceManyTest extends \Tests\TestCase
 {
     public function testReplace()
     {
-        $string = new \QzPhp\String();
+        $string = new \QzPhp\Str();
         $source = 'The quick <brown> {fox} (jumps) over the <lazy> dog';
         $matches = [
             '<brown>' => 'black',

@@ -29,7 +29,7 @@ class ConnectionBuilder
             $params = substr($connectionString, strpos($connectionString, ';') + 1);
             $setting = (object)$this->paramsToKeyValueArray($params);
             $setting->server = $server;
-            $result = new \QzPhp\Connection\FTPConnection($setting);
+            $result = new \QzPhp\Connection\FtpConnection($setting);
             return $result;
         }
     }

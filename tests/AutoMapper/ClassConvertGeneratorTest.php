@@ -47,6 +47,7 @@ class ClassConvertGeneratorTest extends \Tests\TestCase
     {
         $person = [
             (object)[
+                "id" => "01",
                 "name"=> "Luke",
                 "birth"=> "2010/01/01",
                 "identitication_no"=> "003",
@@ -56,9 +57,11 @@ class ClassConvertGeneratorTest extends \Tests\TestCase
 
         $phones = [
             (object)[
+                "person_id" => "01",
                 "phone"=> "0001111000"
             ],
             (object)[
+                "person_id" => "01",
                 "phone"=> "0001111011"
             ]
         ];

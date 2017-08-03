@@ -102,7 +102,7 @@ class ClassGenerator
     }
 
     public function generateClassDefinition(){
-        $t1 = "    "; $t2 = $t1 + $t1; $t3 = $t2 + $t1; $t4 = $t2 + $t2;
+        $t1 = "    "; $t2 = $t1 . $t1; $t3 = $t2 . $t1; $t4 = $t2 . $t2;
         $uses = Linq::select($this->_use, function($k){
             return 'use ' . $k . ';';
         });

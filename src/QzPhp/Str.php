@@ -1,7 +1,7 @@
 <?php
 namespace QzPhp;
 
-class String{
+class Str{
     public function __construct(){
         $this->accentReplacement =
             [

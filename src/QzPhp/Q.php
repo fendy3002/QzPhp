@@ -14,7 +14,7 @@ class Q{
         return new Arr($arr);
     }
     public function string(){
-        return new String();
+        return new Str();
     }
     public function io(){
         return new IO();
