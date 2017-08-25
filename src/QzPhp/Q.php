@@ -24,27 +24,27 @@ class Q{
         $this->mock = [];
     }
     public function arr($arr){
-        return $this->mock['arr'] ?: new Arr($arr);
+        return $this->getObj('arr', new Arr($arr));
     }
     public function string(){
-        return $this->mock['string'] ?: new Str();
+        return $this->getObj('string', new Str());
     }
     public function io(){
-        return $this->mock['io'] ?: new IO();
+        return $this->getObj('io', new IO());
     }
     public function geo(){
-        return $this->mock['geo'] ?: new Geo();
+        return $this->getObj('geo', new Geo());
     }
 
     public function url(){
-        return $this->mock['url'] ?: new Url();
+        return $this->getObj('url', new Url());
     }
     public function curl($url){
-        return $this->mock['curl'] ?: new CUrl($url);
+        return $this->getObj('curl', new CUrl($url));
     }
 
     public function time(){
-        return $this->mock['time'] ?: new Time();
+        return $this->getObj('time', new Time());
     }
 
     public function stringEmpty($str){
@@ -107,7 +107,7 @@ class Q{
     }
 
 	public function enum($data){
-		return $this->mock['enum'] ?: new Enum($data);
+		return $this->getObj('enum', new Enum($data));
 	}
 
     public function db($dbConf, $logObj = NULL){
@@ -136,6 +136,15 @@ class Q{
     }
 
     public function boolToYesNo($context){
-        return $this->mock['boolToYesNo'] ?: new BoolToYesNo($context);
+        return $this->getObj('boolToYesNo', new BoolToYesNo($context));
+    }
+
+    private function getObj($module, $actual){
+        if(array_key_exists($module, $this->mock)){
+            return $this->mock[$module];
+        }
+        else{
+            return $actual;
+        }
     }
 }

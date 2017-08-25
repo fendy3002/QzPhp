@@ -1,17 +1,19 @@
 
 
 Code Coverage Report:       
-  2017-08-25 09:51:05       
+  2017-08-25 10:11:56       
                             
  Summary:                   
   Classes: 17.95% (7/39)    
-  Methods: 37.89% (86/227)  
-  Lines:   41.48% (623/1502)
+  Methods: 38.60% (88/228)  
+  Lines:   42.02% (627/1492)
 
 \QzPhp::Arr
   Methods:  42.86% ( 3/ 7)   Lines:  31.25% (  5/ 16)
 \QzPhp::BoolToYesNo
   Methods: 100.00% ( 2/ 2)   Lines: 100.00% ( 12/ 12)
+\QzPhp::CUrl
+  Methods:  14.29% ( 1/ 7)   Lines:   3.45% (  2/ 58)
 \QzPhp::ClassGenerator
   Methods:  47.06% ( 8/17)   Lines:  70.83% ( 51/ 72)
 \QzPhp::ConnectionBuilder
@@ -33,7 +35,7 @@ Code Coverage Report:
 \QzPhp::NullExpirable
   Methods:  66.67% ( 2/ 3)   Lines:  75.00% (  6/  8)
 \QzPhp::Q
-  Methods:  68.00% (17/25)   Lines:  69.44% ( 50/ 72)
+  Methods:  69.23% (18/26)   Lines:  70.67% ( 53/ 75)
 \QzPhp::Str
   Methods:  60.00% ( 3/ 5)   Lines:  78.57% ( 22/ 28)
 \QzPhp::Time
@@ -51,7 +53,7 @@ Code Coverage Report:
 \QzPhp\Connection::FtpConnection
   Methods:   0.00% ( 0/ 2)   Lines:  56.00% ( 14/ 25)
 \QzPhp\Connection::LocalFileConnection
-  Methods: 100.00% ( 2/ 2)   Lines: 100.00% ( 14/ 14)
+  Methods: 100.00% ( 2/ 2)   Lines: 100.00% ( 13/ 13)
 \QzPhp\Connection::NetworkFileConnection
   Methods:  50.00% ( 1/ 2)   Lines:  90.00% (  9/ 10)
 \QzPhp\Logs::ConsoleLog
