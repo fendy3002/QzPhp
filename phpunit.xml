@@ -14,4 +14,24 @@
             <exclude>./tests/Manual/</exclude>
         </testsuite>
     </testsuites>
+    <filter>
+        <whitelist>
+            <directory suffix=".php">src/QzPhp</directory>
+        </whitelist>
+    </filter>
+
+    <logging>
+        <log type="coverage-html" target="./storage/phpunit_html" charset="UTF-8"
+            yui="true" highlight="true"
+            lowUpperBound="50" highLowerBound="80"/>
+        <log type="coverage-text" target="./storage/phpunit/coverage.log" />
+        <log type="testdox-text" target="./storage/phpunit/testdox.log" />
+        <log type="testdox-html" target="./storage/phpunit_html/testdox.html" />
+    </logging>
+    <php>
+        <env name="APP_ENV" value="testing"/>
+        <env name="CACHE_DRIVER" value="array"/>
+        <env name="SESSION_DRIVER" value="array"/>
+        <env name="QUEUE_DRIVER" value="sync"/>
+    </php>
 </phpunit>

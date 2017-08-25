@@ -10,28 +10,41 @@ class Q{
         }
         return self::$instance;
     }
+    public function __construct(){
+        $this->mock = [];
+    }
+    private $mock;
+    public function addMock($module, $mock){
+        $this->mock[$module] = $mock;
+    }
+    public function addMocks($mock){
+        $this->mock = array_merge($this->mock, $mock);
+    }
+    public function clearMock(){
+        $this->mock = [];
+    }
     public function arr($arr){
-        return new Arr($arr);
+        return $this->mock['arr'] ?: new Arr($arr);
     }
     public function string(){
-        return new Str();
+        return $this->mock['string'] ?: new Str();
     }
     public function io(){
-        return new IO();
+        return $this->mock['io'] ?: new IO();
     }
     public function geo(){
-        return new Geo();
+        return $this->mock['geo'] ?: new Geo();
     }
 
     public function url(){
-        return new Url();
+        return $this->mock['url'] ?: new Url();
     }
     public function curl($url){
-        return new CUrl($url);
+        return $this->mock['curl'] ?: new CUrl($url);
     }
 
     public function time(){
-        return new Time();
+        return $this->mock['time'] ?: new Time();
     }
 
     public function stringEmpty($str){
@@ -93,17 +106,17 @@ class Q{
         return $result;
     }
 
-	public static function enum($data){
-		return new Enum($data);
+	public function enum($data){
+		return $this->mock['enum'] ?: new Enum($data);
 	}
 
-    public static function db($dbConf, $logObj = NULL){
+    public function db($dbConf, $logObj = NULL){
         $dbGen = new \QzPhp\DBGenerator();
         $dbh = $dbGen->get($dbConf['host'], $dbConf['user'],
             $dbConf['password'], $dbConf['database']);
         return new \QzPhp\QDB($dbh, $logObj);
     }
-    public static function mySqlDb($dbConf, $logObj = NULL){
+    public function mySqlDb($dbConf, $logObj = NULL){
         $dbGen = new \QzPhp\DBGenerator();
         $dbh = $dbGen->get($dbConf['host'], $dbConf['user'],
             $dbConf['password'], $dbConf['database']);
@@ -123,6 +136,6 @@ class Q{
     }
 
     public function boolToYesNo($context){
-        return new BoolToYesNo($context);
+        return $this->mock['boolToYesNo'] ?: new BoolToYesNo($context);
     }
 }
