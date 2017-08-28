@@ -174,6 +174,18 @@ class IO{
             return $result;
         }
     }
+
+    public function deleteFile($filename){
+        return unlink($filename);
+    }
+
+    public function readFile($filename){
+        return file_get_contents($filename);
+    }
+    public function writeFile($filename, $data, $flags = 0){
+        return file_put_contents($filename, $data, $flags);
+    }
+
     public function getFolderSize($path){
         if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
             return $this->getFolderSizeWindows($path);

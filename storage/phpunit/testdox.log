@@ -54,6 +54,9 @@ IO\Basename
 IO\Combine
  [x] 
 
+IO\File
+ [x] Write read
+
 IO\ReadFileByPart
  [x] 
 
