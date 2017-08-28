@@ -175,6 +175,12 @@ class IO{
         }
     }
 
+    public function fileExists($filename){
+        return file_exists($filename);
+    }
+    public function touch($filename){
+        return touch($filename);
+    }
     public function deleteFile($filename){
         return unlink($filename);
     }

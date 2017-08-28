@@ -13,6 +13,7 @@ class FileTest extends \Tests\TestCase
         $io = new \QzPhp\IO();
         $filePath = $io->combine("storage", "test", "file2.txt");
         
+        $io->touch($filePath);
         $data = "Government of the people, by the people, for the people, shall not perish from the Earth.";
         $io->writeFile($filePath, $data);
 
@@ -20,5 +21,7 @@ class FileTest extends \Tests\TestCase
         $this->assertEquals($actual, $data);
 
         $io->deleteFile($filePath);
+        $fileExists = $io->fileExists($filePath);
+        $this->assertEquals(false, $fileExists);
     }
 }
