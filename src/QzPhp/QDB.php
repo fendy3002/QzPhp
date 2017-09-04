@@ -43,7 +43,7 @@ class QDB{
         }
         $stmt->execute();
         if($stmt->errorCode() != '00000'){
-            $this->log($stmt->errorInfo());
+            $this->log->messageln($stmt->errorInfo());
         }
     }
 
@@ -84,7 +84,7 @@ class QDB{
         $stmt = $this->dbh->prepare($query);
         $stmt->execute($insert_values);
         if($stmt->errorCode() != '00000'){
-            $this->log($stmt->errorInfo());
+            $this->log->messageln($stmt->errorInfo());
         }
     }
 
@@ -121,7 +121,7 @@ class QDB{
 
             $prep->execute($param);
             if($prep->errorCode() != '00000'){
-                $this->log($prep->errorInfo());
+                $this->log->messageln($prep->errorInfo());
             }
         }
     }
@@ -137,7 +137,7 @@ class QDB{
 
         $stmt->execute();
         if($stmt->errorCode() != '00000'){
-            $this->log($stmt->errorInfo());
+            $this->log->messageln($stmt->errorInfo());
         }
         else{
             $result = $stmt->fetchAll();
