@@ -11,7 +11,8 @@ class FileTest extends \Tests\TestCase
     public function testWriteRead()
     {
         $io = new \QzPhp\IO();
-        $filePath = $io->combine("storage", "test", "file2.txt");
+        $folderPath = $io->combine("storage", "test");
+        $filePath = $io->combine($folderPath, "file2.txt");
         
         $io->touch($filePath);
         $data = "Government of the people, by the people, for the people, shall not perish from the Earth.";
@@ -19,6 +20,9 @@ class FileTest extends \Tests\TestCase
 
         $actual = $io->readFile($filePath);
         $this->assertEquals($actual, $data);
+
+        $scanned = $io->scandir($folderPath);
+        $this->assertGreaterThan(0, count($scanned));
 
         $io->deleteFile($filePath);
         $fileExists = $io->fileExists($filePath);

@@ -191,6 +191,9 @@ class IO{
     public function writeFile($filename, $data, $flags = 0){
         return file_put_contents($filename, $data, $flags);
     }
+    public function scandir($folderPath){
+        return scandir($folderPath);
+    }
 
     public function getFolderSize($path){
         if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
