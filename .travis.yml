@@ -11,5 +11,5 @@ before_install:
   - docker --version
   - docker pull mariadb:latest
   - docker run -d --name query_db -p 3307:3306 -e MYSQL_ROOT_PASSWORD=password -e MYSQL_DATABASE=testdb mariadb:latest
-  - php ./src/QzPhp/qz.php mapper
   - composer install
+  - php ./src/QzPhp/qz.php mapper
