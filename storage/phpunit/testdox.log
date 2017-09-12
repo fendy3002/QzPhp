@@ -31,8 +31,7 @@ s\ConnectionBuilder
  [x] Ftp
 
 DBGenerator\DBGenerator
- [ ] Z
- [x] Exception
+ [x] Z
 
 Expirable\Expirable
  [x] 
@@ -100,6 +99,13 @@ s\Models\Result
 Q\Mock
  [x] Normal
  [x] All
+
+QDB\Insert
+ [x] Normal
+ [x] Wrong table
+
+QDB\Statement
+ [x] Exception
 
 s\String\ReplaceAccent
  [x] Replace

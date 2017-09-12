@@ -1,12 +1,12 @@
 
 
 Code Coverage Report:       
-  2017-09-07 10:56:37       
+  2017-09-12 09:27:57       
                             
  Summary:                   
-  Classes: 17.95% (7/39)    
-  Methods: 40.17% (94/234)  
-  Lines:   42.26% (633/1498)
+  Classes: 20.51% (8/39)    
+  Methods: 42.49% (99/233)  
+  Lines:   46.22% (684/1480)
 
 \QzPhp::Arr
   Methods:  42.86% ( 3/ 7)   Lines:  31.25% (  5/ 16)
@@ -19,7 +19,7 @@ Code Coverage Report:
 \QzPhp::ConnectionBuilder
   Methods:  66.67% ( 2/ 3)   Lines:  96.67% ( 29/ 30)
 \QzPhp::DBGenerator
-  Methods:   0.00% ( 0/ 1)   Lines:  80.00% (  4/  5)
+  Methods: 100.00% ( 1/ 1)   Lines: 100.00% (  5/  5)
 \QzPhp::Enum
   Methods:  50.00% (12/24)   Lines:  63.38% ( 45/ 71)
 \QzPhp::Expirable
@@ -35,7 +35,9 @@ Code Coverage Report:
 \QzPhp::NullExpirable
   Methods:  66.67% ( 2/ 3)   Lines:  75.00% (  6/  8)
 \QzPhp::Q
-  Methods:  69.23% (18/26)   Lines:  70.67% ( 53/ 75)
+  Methods:  73.08% (19/26)   Lines:  72.00% ( 54/ 75)
+\QzPhp::QDB
+  Methods:  33.33% ( 3/ 9)   Lines:  46.23% ( 49/106)
 \QzPhp::Str
   Methods:  60.00% ( 3/ 5)   Lines:  78.57% ( 22/ 28)
 \QzPhp::Time
