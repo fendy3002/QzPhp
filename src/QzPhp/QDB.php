@@ -7,7 +7,7 @@ class QDB{
         \QzPhp\Logs\ILog $logObj = NULL
     ){
         $this->dbh = $dbh;
-        $this->logObj = $logObj;
+        $this->logObj = empty($logObj) ? new \QzPhp\Logs\EmptyLog() : $logObj;
     }
     function __destruct(){
         unset($this->dbh);
@@ -16,14 +16,6 @@ class QDB{
 
     public $dbh;
     public $logObj;
-    public function log($obj){
-        if(empty($this->logObj)){
-            $logObj = new \QzPhp\Logs\ConsoleLog();
-            $this->logObj = $logObj;
-        }
-        $logObj = $this->logObj;
-        $logObj->object($obj);
-    }
 
     public function beginTransaction(){
         return $this->dbh->beginTransaction();
@@ -43,7 +35,7 @@ class QDB{
         }
         $stmt->execute();
         if($stmt->errorCode() != '00000'){
-            $this->log->messageln($stmt->errorInfo());
+            $this->logObj->messageln($stmt->errorInfo());
         }
     }
 
@@ -84,7 +76,7 @@ class QDB{
         $stmt = $this->dbh->prepare($query);
         $stmt->execute($insert_values);
         if($stmt->errorCode() != '00000'){
-            $this->log->messageln($stmt->errorInfo());
+            $this->logObj->messageln($stmt->errorInfo());
         }
     }
 
@@ -121,7 +113,7 @@ class QDB{
 
             $prep->execute($param);
             if($prep->errorCode() != '00000'){
-                $this->log->messageln($prep->errorInfo());
+                $this->logObj->messageln($prep->errorInfo());
             }
         }
     }
@@ -137,7 +129,7 @@ class QDB{
 
         $stmt->execute();
         if($stmt->errorCode() != '00000'){
-            $this->log->messageln($stmt->errorInfo());
+            $this->logObj->messageln($stmt->errorInfo());
         }
         else{
             $result = $stmt->fetchAll();
