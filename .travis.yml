@@ -11,8 +11,9 @@ before_install:
   - docker --version
   - docker pull mariadb:latest
   - docker run -d --name query_db -p 3307:3306 -e MYSQL_ROOT_PASSWORD=password -e MYSQL_DATABASE=testdb mariadb:latest
+  - sleep 25
   - docker exec query_db mysql -uroot -e "create database qzphp_db character set utf8mb4 collate utf8mb4_unicode_ci"
-  - docker exec schema_db mysql -uroot -e "create table employee (id int unsigned auto_increment, name varchar(50), age int, primary key (id) );" qzphp_db
+  - docker exec query_db mysql -uroot -e "create table employee (id int unsigned auto_increment, name varchar(50), age int, primary key (id) );" qzphp_db
   - composer install
   - php ./src/QzPhp/qz.php mapper
   - cp `pwd`/ci/travis.conf `pwd`/testconf.php
