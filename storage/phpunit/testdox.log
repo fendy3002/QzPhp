@@ -117,6 +117,6 @@ s\String\Between
  [x] Normal
 
 Url
- [ ] Safe fetch
- [ ] Safe fetch to file
+ [x] Safe fetch
+ [x] Safe fetch to file
 
