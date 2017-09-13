@@ -112,8 +112,9 @@ class Q{
 
     public function db($dbConf, $logObj = NULL){
         $dbGen = new \QzPhp\DBGenerator();
+        $port = array_key_exists("port", $dbConf) ? $dbConf['port'] : NULL;
         $dbh = $dbGen->get($dbConf['host'], $dbConf['user'],
-            $dbConf['password'], $dbConf['database'], $dbConf['port']);
+            $dbConf['password'], $dbConf['database'], $port);
         return new \QzPhp\QDB($dbh, $logObj);
     }
     public function mySqlDb($dbConf, $logObj = NULL){
