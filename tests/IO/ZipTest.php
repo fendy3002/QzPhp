@@ -22,7 +22,7 @@ class ZipTest extends \Tests\TestCase
         touch($file);
         chmod($file, 0777);
 
-        $io->zip($folder, $zipFile);
+        $io->zip($file, $zipFile);
         $io->unzip($zipFile, $extractTo);
         $this->assertFileExists($extractedFile);
 

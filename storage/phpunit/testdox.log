@@ -31,7 +31,7 @@ s\ConnectionBuilder
  [x] Ftp
 
 DBGenerator\DBGenerator
- [x] Z
+ [x] 
 
 Expirable\Expirable
  [x] 
@@ -60,7 +60,7 @@ IO\ReadFileByPart
  [x] 
 
 IO\Zip
- [ ] 
+ [x] 
 
 Linq\Distinct
  [x] 

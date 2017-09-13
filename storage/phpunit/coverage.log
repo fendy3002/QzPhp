@@ -1,12 +1,12 @@
 
 
 Code Coverage Report:       
-  2017-09-13 04:52:30       
+  2017-09-13 07:59:29       
                             
  Summary:                   
   Classes: 20.51% (8/39)    
   Methods: 42.49% (99/233)  
-  Lines:   46.22% (684/1480)
+  Lines:   47.94% (710/1481)
 
 \QzPhp::Arr
   Methods:  42.86% ( 3/ 7)   Lines:  31.25% (  5/ 16)
@@ -29,13 +29,13 @@ Code Coverage Report:
 \QzPhp::Geo
   Methods: 100.00% ( 2/ 2)   Lines: 100.00% ( 15/ 15)
 \QzPhp::IO
-  Methods:  52.94% ( 9/17)   Lines:  22.12% ( 23/104)
+  Methods:  52.94% ( 9/17)   Lines:  46.15% ( 48/104)
 \QzPhp::Linq
   Methods:  16.67% ( 4/24)   Lines:  43.46% ( 83/191)
 \QzPhp::NullExpirable
   Methods:  66.67% ( 2/ 3)   Lines:  75.00% (  6/  8)
 \QzPhp::Q
-  Methods:  73.08% (19/26)   Lines:  72.00% ( 54/ 75)
+  Methods:  73.08% (19/26)   Lines:  72.37% ( 55/ 76)
 \QzPhp::QDB
   Methods:  33.33% ( 3/ 9)   Lines:  46.23% ( 49/106)
 \QzPhp::Str
