@@ -5,6 +5,7 @@ docker exec schema_db mysql -uroot -e "create database qzphp_db character set ut
 docker exec schema_db mysql -uroot -e "create table employee (id int unsigned auto_increment, name varchar(50), age int, primary key (id) );" qzphp_db
 
 cp `pwd`/ci/test.conf `pwd`/testconf.php
+php ./src/qz.php mapper
 
 docker run --net dckr_net -v `pwd`:/app --rm registry.gitlab.com/fendy3002/dockerfiles/qz/phpunit:latest -c phpunit.xml
 
