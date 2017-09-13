@@ -3,7 +3,7 @@ namespace Test\DBGenerator;
 
 class DBGeneratorTest extends \Tests\TestCase
 {
-    public function testZ()
+    public function test()
     {
         $conf = include(__DIR__ . "/../../testconf.php");
 
@@ -12,6 +12,7 @@ class DBGeneratorTest extends \Tests\TestCase
             'user' => $conf['username'],
             'password' => $conf['password'],
             'database' => $conf['database'],
+            'port' => $conf['port']
         ]);
         $this->assertEquals(1, count($qdb->select("select 1 as 'col1'")));
     }

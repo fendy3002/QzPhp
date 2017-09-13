@@ -113,7 +113,7 @@ class Q{
     public function db($dbConf, $logObj = NULL){
         $dbGen = new \QzPhp\DBGenerator();
         $dbh = $dbGen->get($dbConf['host'], $dbConf['user'],
-            $dbConf['password'], $dbConf['database']);
+            $dbConf['password'], $dbConf['database'], $dbConf['port']);
         return new \QzPhp\QDB($dbh, $logObj);
     }
     public function mySqlDb($dbConf, $logObj = NULL){
