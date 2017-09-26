@@ -22,6 +22,14 @@ class Enum {
 		});
 		return $this;
 	}
+	
+	public function whereExistsIn($compared, $comparer){
+		array_push($this->commands, function($data) use($compared, $comparer){
+			return Linq::whereExistsIn($data, $compared, $comparer);
+		});
+		return $this;
+	}
+	
 	public function select($handler){
 		array_push($this->commands, function($data) use($handler){
 			return Linq::select($data, $handler);
