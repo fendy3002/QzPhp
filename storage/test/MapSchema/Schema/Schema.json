@@ -5,6 +5,7 @@
             "name": "string",
             "birth": "datetime",
             "id": "string",
+            "nonAssign": "string",
 
             "addresses": "Models\\Address[]",
             "phones": "string[]",

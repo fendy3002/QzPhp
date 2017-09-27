@@ -6,6 +6,7 @@
             "name": "",
             "birth": "",
             "id": "identitication_no",
+            "nonAsssign": "::null",
 
             "addresses": {
                 "type": "array",
