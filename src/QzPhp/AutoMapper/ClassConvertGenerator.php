@@ -52,7 +52,9 @@ class ClassConvertGenerator
                 }
                 else{
                     $value = $value ?: $key;
-                    $conversion .= '    $result->'.$key.' = $k->'.$value.';' . "\n";
+                    if(strtolower($value) != "::null"){
+                        $conversion .= '    $result->' . $key . ' = $k->' . $value . ';' . "\n";
+                    }
                 }
             }
             $generator->addMethod('convertOne',
