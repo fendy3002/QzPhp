@@ -19,6 +19,9 @@ s\AutoMapper\ValueConverter
 s\BoolToYesNo\Get
  [x] Get
 
+Expirable\RedisCache
+ [x] Expire on method
+
 ClassGenerator
  [x] Generate
 

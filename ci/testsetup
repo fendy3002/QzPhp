@@ -1,5 +1,8 @@
 docker network create -d bridge --subnet 172.19.0.0/16 -o "com.docker.network.bridge.enable_icc"="true" -o "com.docker.network.bridge.enable_ip_masquerade"="true" -o "com.docker.network.bridge.name"="dockernet1" dckr_net
 docker run -d --name schema_db -p 3310:3306 -e "MYSQL_ALLOW_EMPTY_PASSWORD=true" mariadb:latest --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+docker run -d --name redis_tst --net dckr_net -p 6381:6379 redis:latest
+
+sleep 25
 
 docker exec schema_db mysql -uroot -e "create database qzphp_db character set utf8mb4 collate utf8mb4_unicode_ci"
 docker exec schema_db mysql -uroot -e "create table employee (id int unsigned auto_increment, name varchar(50), age int, primary key (id) );" qzphp_db
@@ -14,6 +17,7 @@ docker run --net dckr_net -v `pwd`:/app --rm registry.gitlab.com/fendy3002/docke
 
 docker network disconnect dckr_net schema_db
 docker stop schema_db && docker rm schema_db
+docker stop redis_tst && docker rm redis_tst
 docker network rm dckr_net
 
 sudo rm -rf ci/ssh

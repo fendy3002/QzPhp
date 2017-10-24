@@ -1,12 +1,12 @@
 
 
 Code Coverage Report:       
-  2017-09-13 08:07:45       
+  2017-10-24 04:59:39       
                             
  Summary:                   
-  Classes: 20.51% (8/39)    
-  Methods: 42.49% (99/233)  
-  Lines:   47.94% (710/1481)
+  Classes: 20.00% (8/40)    
+  Methods: 42.62% (101/237) 
+  Lines:   48.78% (738/1513)
 
 \QzPhp::Arr
   Methods:  42.86% ( 3/ 7)   Lines:  31.25% (  5/ 16)
@@ -21,7 +21,7 @@ Code Coverage Report:
 \QzPhp::DBGenerator
   Methods: 100.00% ( 1/ 1)   Lines: 100.00% (  5/  5)
 \QzPhp::Enum
-  Methods:  50.00% (12/24)   Lines:  63.38% ( 45/ 71)
+  Methods:  48.00% (12/25)   Lines:  60.81% ( 45/ 74)
 \QzPhp::Expirable
   Methods: 100.00% ( 1/ 1)   Lines: 100.00% (  4/  4)
 \QzPhp::FileReader
@@ -47,11 +47,13 @@ Code Coverage Report:
 \QzPhp::Uuid
   Methods:  50.00% ( 1/ 2)   Lines:  50.00% (  4/  8)
 \QzPhp\AutoMapper::ClassConvertGenerator
-  Methods:  28.57% ( 2/ 7)   Lines:  49.03% ( 76/155)
+  Methods:  28.57% ( 2/ 7)   Lines:  50.32% ( 79/157)
 \QzPhp\AutoMapper::KeyValueConvertGenerator
   Methods: 100.00% ( 2/ 2)   Lines: 100.00% ( 25/ 25)
 \QzPhp\AutoMapper::ValueConverter
   Methods: 100.00% ( 3/ 3)   Lines: 100.00% (  6/  6)
+\QzPhp\Cache::RedisCache
+  Methods:  66.67% ( 2/ 3)   Lines:  92.59% ( 25/ 27)
 \QzPhp\Connection::FtpConnection
   Methods:   0.00% ( 0/ 2)   Lines:  56.00% ( 14/ 25)
 \QzPhp\Connection::LocalFileConnection
