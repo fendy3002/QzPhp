@@ -2,7 +2,7 @@
 namespace QzPhp\Cache;
 
 
-class RedisCache{
+class RedisListCache{
     public function __construct($key, $option = NULL){
         $this->key = $key;
         if(!empty($option)){
@@ -27,31 +27,24 @@ class RedisCache{
     private $connection;
     private $lastUpdate;
 
-    public function get($onExpire = NULL){
+    public function get($key, $onExpire = NULL){
         $onExpire = $onExpire ?: $this->onExpire;
+        $expireHandler = function() use($key, $onExpire){
+            return $onExpire($key);
+        };
         $client = new \Predis\Client($this->connection);
         
-        if($this->isExpired()){
-            $value = $onExpire();
-            $toCache = serialize($value);
-
-            $time = time();
-            $client->set($this->key, $toCache);
-            $this->lastUpdate = $time;
-
-            return $value;
+        $fromCache = $client->get($this->key. '.' . $key);
+        $expirable = NULL;
+        if(empty($fromCache)){
+            $expirable = new \QzPhp\NullExpirable($this->expire);
+        } else{
+            $expirable = unserialize($fromCache);
         }
-        else{
-            $fromCache = $client->get($this->key);
-            return unserialize($fromCache);
-        }
-    }
-    public function reseed($onExpire = NULL){
-        $this->lastUpdate = null;
-        return $this->get($onExpire);
-    }
+        $result = $expirable->get($expireHandler);
+        $toCache = serialize($expirable);
 
-    private function isExpired(){
-        return empty($this->lastUpdate) || (time() - $this->lastUpdate) > $this->expire;
+        $client->set($this->key. '.' . $key, $toCache);
+        return $result;
     }
 }

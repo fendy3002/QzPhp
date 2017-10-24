@@ -34,10 +34,16 @@ class RedisCacheTest extends \Tests\TestCase
         $value2 = $expirable->get($onExpire);
         sleep(4);
         $value3 = $expirable->get($onExpire);
-
-        $this->assertEquals(2, $context->cacheCall);
+        sleep(1);
+        $value4 = $expirable->reseed($onExpire);
+        sleep(1);
+        $value5 = $expirable->get($onExpire);
+        
+        $this->assertEquals(3, $context->cacheCall);
         $this->assertEquals($value1, $value2);
         $this->assertEquals($value2, $value3);
+        $this->assertEquals($value3, $value4);
+        $this->assertEquals($value4, $value5);
 
         $redis = new \Predis\Client($redisConnection);
         $redis->flushAll();

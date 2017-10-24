@@ -23,6 +23,9 @@ Expirable\RedisCache
  [x] Expire on method
  [x] Expire on constructor
 
+Expirable\RedisListCache
+ [x] Expire on method
+
 ClassGenerator
  [x] Generate
 
