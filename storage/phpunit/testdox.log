@@ -21,6 +21,7 @@ s\BoolToYesNo\Get
 
 Expirable\RedisCache
  [x] Expire on method
+ [x] Expire on constructor
 
 ClassGenerator
  [x] Generate

@@ -1,12 +1,12 @@
 
 
 Code Coverage Report:       
-  2017-10-24 04:59:39       
+  2017-10-24 05:06:01       
                             
  Summary:                   
-  Classes: 20.00% (8/40)    
-  Methods: 42.62% (101/237) 
-  Lines:   48.78% (738/1513)
+  Classes: 22.50% (9/40)    
+  Methods: 43.04% (102/237) 
+  Lines:   48.91% (740/1513)
 
 \QzPhp::Arr
   Methods:  42.86% ( 3/ 7)   Lines:  31.25% (  5/ 16)
@@ -53,7 +53,7 @@ Code Coverage Report:
 \QzPhp\AutoMapper::ValueConverter
   Methods: 100.00% ( 3/ 3)   Lines: 100.00% (  6/  6)
 \QzPhp\Cache::RedisCache
-  Methods:  66.67% ( 2/ 3)   Lines:  92.59% ( 25/ 27)
+  Methods: 100.00% ( 3/ 3)   Lines: 100.00% ( 27/ 27)
 \QzPhp\Connection::FtpConnection
   Methods:   0.00% ( 0/ 2)   Lines:  56.00% ( 14/ 25)
 \QzPhp\Connection::LocalFileConnection
