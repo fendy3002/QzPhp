@@ -19,6 +19,7 @@ class RedisListCache{
 
         $this->connection = $this->connection ?: [];
         $this->expire = $this->expire ?: 300; // 5 minute
+        $this->lastUpdate = [];
     }
 
     private $key;
@@ -29,22 +30,26 @@ class RedisListCache{
 
     public function get($key, $onExpire = NULL){
         $onExpire = $onExpire ?: $this->onExpire;
-        $expireHandler = function() use($key, $onExpire){
-            return $onExpire($key);
-        };
+
+        $redisKey = $this->key. '.' . $key;
         $client = new \Predis\Client($this->connection);
         
-        $fromCache = $client->get($this->key. '.' . $key);
-        $expirable = NULL;
-        if(empty($fromCache)){
-            $expirable = new \QzPhp\NullExpirable($this->expire);
-        } else{
-            $expirable = unserialize($fromCache);
-        }
-        $result = $expirable->get($expireHandler);
-        $toCache = serialize($expirable);
+        if($this->isExpired($redisKey)){
+            $value = $onExpire($key);
+            $toCache = serialize($value);
 
-        $client->set($this->key. '.' . $key, $toCache);
-        return $result;
+            $time = time();
+            $client->set($redisKey, $toCache);
+            $this->lastUpdate[$redisKey] = $time;
+
+            return $value;
+        }
+        else{
+            $fromCache = $client->get($redisKey);
+            return unserialize($fromCache);
+        }
+    }
+    private function isExpired($key){
+        return !array_key_exists($key, $this->lastUpdate) || (time() - $this->lastUpdate[$key]) > $this->expire;
     }
 }
