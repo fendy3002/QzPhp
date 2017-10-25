@@ -19,39 +19,40 @@ class RedisCache{
 
         $this->connection = $this->connection ?: [];
         $this->expire = $this->expire ?: 300; // 5 minute
+        $this->client = new \Predis\Client($this->connection);
     }
 
     private $key;
     private $expire;
     private $onExpire;
     private $connection;
-    private $lastUpdate;
+    private $client;
 
     public function get($onExpire = NULL){
         $onExpire = $onExpire ?: $this->onExpire;
-        $client = new \Predis\Client($this->connection);
         
         if($this->isExpired()){
             $value = $onExpire();
             $toCache = serialize($value);
 
             $time = time();
-            $client->set($this->key, $toCache);
-            $this->lastUpdate = $time;
+            $this->client->set($this->key, $toCache);
+            $this->client->set($this->key . '__lastupdate', $time);
 
             return $value;
         }
         else{
-            $fromCache = $client->get($this->key);
+            $fromCache = $this->client->get($this->key);
             return unserialize($fromCache);
         }
     }
     public function reseed($onExpire = NULL){
-        $this->lastUpdate = null;
+        $this->client->set($this->key . '__lastupdate', null);
         return $this->get($onExpire);
     }
 
     private function isExpired(){
-        return empty($this->lastUpdate) || (time() - $this->lastUpdate) > $this->expire;
+        $lastUpdate = $this->client->get($this->key . '__lastupdate');
+        return empty($lastUpdate) || (time() - $lastUpdate) > $this->expire;
     }
 }

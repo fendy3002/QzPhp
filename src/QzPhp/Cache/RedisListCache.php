@@ -20,40 +20,41 @@ class RedisListCache{
         $this->connection = $this->connection ?: [];
         $this->expire = $this->expire ?: 300; // 5 minute
         $this->lastUpdate = [];
+        $this->client = new \Predis\Client($this->connection);
     }
 
     private $key;
     private $expire;
     private $onExpire;
     private $connection;
-    private $lastUpdate;
 
     public function get($key, $onExpire = NULL){
         $onExpire = $onExpire ?: $this->onExpire;
 
         $redisKey = $this->key. '.' . $key;
-        $client = new \Predis\Client($this->connection);
         
         if($this->isExpired($redisKey)){
             $value = $onExpire($key);
             $toCache = serialize($value);
 
             $time = time();
-            $client->set($redisKey, $toCache);
-            $this->lastUpdate[$redisKey] = $time;
+            $this->client->set($redisKey, $toCache);
+            $this->client->set($redisKey . '__lastupdate', $time);
 
             return $value;
         }
         else{
-            $fromCache = $client->get($redisKey);
+            $fromCache = $this->client->get($redisKey);
             return unserialize($fromCache);
         }
     }
     public function reseed($key, $onExpire = NULL){
-        $this->lastUpdate[$key] = null;
+        $redisKey = $this->key. '.' . $key;
+        $this->client->set($redisKey . '__lastupdate', null);
         return $this->get($key, $onExpire);
     }
     private function isExpired($key){
-        return !array_key_exists($key, $this->lastUpdate) || (time() - $this->lastUpdate[$key]) > $this->expire;
+        $lastUpdate = $this->client->get($key . '__lastupdate');
+        return empty($lastUpdate) || (time() - $lastUpdate) > $this->expire;
     }
 }
