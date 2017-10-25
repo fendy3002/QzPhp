@@ -49,6 +49,10 @@ class RedisListCache{
             return unserialize($fromCache);
         }
     }
+    public function reseed($key, $onExpire = NULL){
+        $this->lastUpdate[$key] = null;
+        return $this->get($key, $onExpire);
+    }
     private function isExpired($key){
         return !array_key_exists($key, $this->lastUpdate) || (time() - $this->lastUpdate[$key]) > $this->expire;
     }
