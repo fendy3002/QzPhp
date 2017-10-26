@@ -49,6 +49,9 @@ class ClassConvertGenerator
                         $conversion .= $this->generateSchema($generator, $key, $value) . "\n";
                         $generator->addProperty('public $_' . $key . ";");
                     }
+                    else if(!empty($value->ref) && $value->ref == "true"){
+                        $conversion .= $this->generateRef($generator, $key, $value) . "\n";
+                    }
                 }
                 else{
                     $value = $value ?: $key;
@@ -181,6 +184,27 @@ class ClassConvertGenerator
         );
         return $methodBody;
     }
+    private function generateRef($generator, $key, $value){
+        $statement = '';
+        if($value->type == "array"){
+            $statement .= '$result->'. $key . ' = $mapped;';
+        }
+        else if($value->type == "object"){
+            $statement .= 'if(count($mapped) > 0){' . "\n";
+            $statement .= '    $result->'. $key . ' = $mapped[0];' . "\n";
+            $statement .= '}' . "\n";
+            $statement .= 'else{' . "\n";
+            $statement .= '    $result->'. $key . ' = NULL;' . "\n";
+            $statement .= '}';
+        }
+
+        $methodBody = $this->generateArray(
+            $key,
+            $value,
+            $statement
+        );
+        return $methodBody;
+    }
 
     private function generateArray($key, $value, $statement){
         $t = "    ";
@@ -193,6 +217,23 @@ class ClassConvertGenerator
             }
 
             $methodBody .= $t . $t .'$mapped = Linq::where($additional["' . $key . '"], function($n) use($k) {'. "\n";
+            $methodBody .= $t . $t . $t . 'return '. "\n";
+            $methodBody .= implode(" && " . "\n", $conversions);
+
+            $methodBody .= ';'. "\n";
+            $methodBody .= $t . $t . '});'. "\n";
+        }
+        else if(!empty($value->link)){
+            $linkdata = '$additional["' . $key . '_link"]';
+            $conversions = [];
+            foreach($value->link->from as $source => $converted){
+                $conversions[] = $t . $t . $t . $t . '$k->' . $source . ' == $m->' . $converted;
+            }
+            foreach($value->link->with as $source => $converted){
+                $conversions[] = $t . $t . $t . $t . '$m->' . $source . ' == $n->' . $converted;
+            }
+
+            $methodBody .= $t . $t .'$mapped = Linq::whereExistsIn($additional["' . $key . '"], ' . $linkdata . ', function($n, $m) use($k) {'. "\n";
             $methodBody .= $t . $t . $t . 'return '. "\n";
             $methodBody .= implode(" && " . "\n", $conversions);
 

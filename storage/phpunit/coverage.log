@@ -1,12 +1,12 @@
 
 
 Code Coverage Report:       
-  2017-10-25 10:01:18       
+  2017-10-26 08:39:19       
                             
  Summary:                   
   Classes: 21.95% (9/41)    
-  Methods: 43.80% (106/242) 
-  Lines:   50.03% (776/1551)
+  Methods: 44.03% (107/243) 
+  Lines:   49.50% (785/1586)
 
 \QzPhp::Arr
   Methods:  42.86% ( 3/ 7)   Lines:  31.25% (  5/ 16)
@@ -31,7 +31,7 @@ Code Coverage Report:
 \QzPhp::IO
   Methods:  52.94% ( 9/17)   Lines:  46.15% ( 48/104)
 \QzPhp::Linq
-  Methods:  16.67% ( 4/24)   Lines:  43.46% ( 83/191)
+  Methods:  20.83% ( 5/24)   Lines:  47.64% ( 91/191)
 \QzPhp::NullExpirable
   Methods:  66.67% ( 2/ 3)   Lines:  75.00% (  6/  8)
 \QzPhp::Q
@@ -47,7 +47,7 @@ Code Coverage Report:
 \QzPhp::Uuid
   Methods:  50.00% ( 1/ 2)   Lines:  50.00% (  4/  8)
 \QzPhp\AutoMapper::ClassConvertGenerator
-  Methods:  28.57% ( 2/ 7)   Lines:  50.32% ( 79/157)
+  Methods:  25.00% ( 2/ 8)   Lines:  41.15% ( 79/192)
 \QzPhp\AutoMapper::KeyValueConvertGenerator
   Methods: 100.00% ( 2/ 2)   Lines: 100.00% ( 25/ 25)
 \QzPhp\AutoMapper::ValueConverter

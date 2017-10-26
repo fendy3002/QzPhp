@@ -62,6 +62,18 @@
                 "key": {
                     "mother_id": "identitication_no"
                 }
+            },
+            "vehicles": {
+                "type": "array",
+                "ref": "true",
+                "link": {
+                    "from": {
+                        "identitication_no" : "person_id"
+                    },
+                    "with": {
+                        "vehicle_id" : "id"
+                    }
+                }
             }
         }
     },

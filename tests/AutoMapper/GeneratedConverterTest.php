@@ -72,6 +72,39 @@ class GeneratedConverter extends \Tests\TestCase
                 "isDefault" => true
             ]
         ];
+
+        $vehicleLink = [
+            (object)[
+                "person_id" => "003",
+                "vehicle_id" => "suzukir3"
+            ],
+            (object)[
+                "person_id" => "003",
+                "vehicle_id" => "hondamobilio"
+            ],
+            (object)[
+                "person_id" => "001",
+                "vehicle_id" => "mitsubishiexpander"
+            ]
+        ];
+
+        $vehicles = [
+            (object)[
+                "id" => "hondamobilio",
+                "manufacturer" => "Honda",
+                "model" => "Mobilio"
+            ],
+            (object)[
+                "id" => "mitsubishiexpander",
+                "manufacturer" => "Mitsubishi",
+                "model" => "Expander"
+            ],
+            (object)[
+                "id" => "suzukir3",
+                "manufacturer" => "Suzuki",
+                "model" => "Ertiga"
+            ]
+        ];
         $additionals = [
             "moms" => $person,
             "phones" => $phones,
@@ -79,11 +112,21 @@ class GeneratedConverter extends \Tests\TestCase
             "educations" => $educations,
             "experiences" => $experiences,
             "defaultPhone" => $defaultPhone,
-            "defaultExperiences" => $defaultExperiences
+            "defaultExperiences" => $defaultExperiences,
+            "vehicles" => $vehicles,
+            "vehicles_link" => $vehicleLink
         ];
 
         $converter = new \Generated\Converter\Person1();
         $result = $converter->convert($person, $additionals);
-        print_r($result);
+
+        $this->assertEquals(2, count($result));
+        $this->assertEquals("Luke", $result[0]->name);
+        $this->assertEquals(2, count($result[0]->vehicles));
+        $this->assertEquals(2, count($result[0]->experiences));
+        $this->assertEquals(2, count($result[0]->phones));
+
+        $this->assertEquals(1, count($result[1]->vehicles));
+        $this->assertEquals(2, count($result[1]->experiences));
     }
 }

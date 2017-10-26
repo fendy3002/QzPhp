@@ -10,6 +10,9 @@ s\AutoMapper\ClassConvertGenerator
  [x] Fields
  [x] Value
 
+s\AutoMapper\GeneratedConverter
+ [x] Convert
+
 s\AutoMapper\KeyValueConvertGenerator
  [x] 
 

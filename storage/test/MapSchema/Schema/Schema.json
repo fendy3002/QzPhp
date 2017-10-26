@@ -12,7 +12,8 @@
             "defaultPhone": "string",
             "educations": "object[]",
             "defaultEducation" : "object",
-            "mother": "Models\\Person"
+            "mother": "Models\\Person",
+            "vehicles": "object[]"
         }
     },
     "Generated\\Models\\Address": {
