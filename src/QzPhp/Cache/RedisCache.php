@@ -22,6 +22,10 @@ class RedisCache{
         $this->client = new \Predis\Client($this->connection);
     }
 
+    public function __destruct(){
+        unset($this->client);
+    }
+
     private $key;
     private $expire;
     private $onExpire;
