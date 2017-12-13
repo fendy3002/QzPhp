@@ -32,7 +32,7 @@ class Linq {
 	public static function select($data, $handler){
 		$result =  array();
 		for($i = 0; $i < count($data); $i++){
-			$items = $handler($data[$i]);
+			$items = $handler($data[$i], $i);
 			if($items != null){
 				array_push($result, $items);
 			}
