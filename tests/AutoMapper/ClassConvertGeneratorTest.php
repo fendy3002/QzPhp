@@ -55,7 +55,8 @@ class ClassConvertGeneratorTest extends \Tests\TestCase
                 "name"=> "Luke",
                 "birth"=> "2017/12/17 01:12:23",
                 "identitication_no"=> "003",
-                "mother_id"=> "001"
+                "mother_id"=> "001",
+                "rating" => "1231"
             ]
         ];
 
@@ -76,7 +77,8 @@ class ClassConvertGeneratorTest extends \Tests\TestCase
         ], [
             "Models\Person" => (object)[
                 "fields" => (object)[
-                    "birth" => "date"
+                    "birth" => "date",
+                    "rating" => "int"
                 ]
             ]
         ]);
@@ -89,6 +91,7 @@ class ClassConvertGeneratorTest extends \Tests\TestCase
                     "name"=> "",
                     "birth"=> "",
                     "id"=> "identitication_no",
+                    "rating"=> "",
                     "phones" => (object)[
                         "type"=> "array",
                         "value"=> "phone",
@@ -115,5 +118,7 @@ class ClassConvertGeneratorTest extends \Tests\TestCase
 
         $this->assertEquals(1, count($actual));
         $this->assertEquals("2017-12-17", $actual[0]->birth);
+        $this->assertEquals(1231, $actual[0]->rating);
+        $this->assertEquals("integer", gettype($actual[0]->rating));
     }
 }
