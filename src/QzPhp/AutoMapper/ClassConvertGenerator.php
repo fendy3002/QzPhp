@@ -14,6 +14,7 @@ class ClassConvertGenerator
     public function generate(){
         $result = [];
         foreach($this->schema as $schemaName => $schema){
+            if($schemaName == "Version"){ continue; }
             $className = $schema->className;
             $fields = $schema->fields;
 

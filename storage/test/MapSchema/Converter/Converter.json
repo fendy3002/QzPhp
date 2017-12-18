@@ -1,4 +1,5 @@
 {
+    "Version": 1.0,
     "Generated\\Converter\\Person1": {
         "className": "Models\\Person",
         "folder": "Converter",

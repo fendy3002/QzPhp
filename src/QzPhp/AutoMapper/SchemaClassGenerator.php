@@ -14,6 +14,7 @@ class SchemaClassGenerator
     public function generate(){
         $result = [];
         foreach($this->schema as $schemaName => $schema){
+            if($schemaName == "Version"){ continue; }
             $fields = $schema->fields;
 
             $nameSpace = substr($schemaName, 0, strrpos($schemaName, "\\"));
