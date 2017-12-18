@@ -17,7 +17,11 @@ Generate php object to object mapper using JSON specification
 
     d. [object field](#converter_field_fields)
 
-    d. [schema](#converter_schema)
+    e. [schema](#converter_schema)
+    
+    f. [key](#converter_key)
+
+    g. [ref link](#converter_ref_link)
 
 <a name="schema"></a>
 ## Schema
@@ -212,6 +216,87 @@ When using schema field, you can support additional data for the child converter
                     "vendor" => $partVendors
                 ]
             ]
+        ]
+    );
+
+
+<a name="converter_key"></a>
+### key
+
+If somehow you need to filter the mapping object by target field, you can use `key` attribute. This works for one to many relationship. Example:
+
+    "subordinates": {
+        "type" : "array",
+        "schema" : "Generated\\Converter\\Person1",
+        "key" : {
+            "person_id": "supervisor_id",
+            "division": "division"
+        }
+    }
+
+More or less will perform like following:
+
+    //data
+    $source = (object)["person_id" => 1, "division" => "finance"]
+
+    $data['subordinates'] = [
+        (object)["supervisor_id" => 1, "division" => "finance", "name" => "a"],
+        (object)["supervisor_id" => 1, "division" => "accounting", "name" => "b"],
+        (object)["supervisor_id" => 2, "division" => "finance", "name" => "c"]
+    ]
+
+    // in-converter
+    $mapped = [];
+    foreach($data['subordinates'] as $obj){
+        if($obj->supervisor_id == $source->person_id &&
+        $obj->division == $source->division){
+            $mapped[] = $obj
+        }
+    }
+    $target->subordinates = $_subordinates_converter->convert($mapped, $data['subordinates_additional']);
+
+<a name="converter_ref_link"></a>
+### ref link
+
+Still in beta. Used when the relations is handled in third value, e.g: third / detail table. For example:
+
+    $persons = [/* person data */];
+    $orgHierarchy = [
+        (object)[
+            "employee_id" => 2,
+            "supervisor_id" => 1
+        ],
+        (object)[
+            "employee_id" => 3,
+            "supervisor_id" => 1
+        ],
+        (object)[
+            "employee_id" => 4,
+            "supervisor_id" => 2
+        ],
+    ];
+
+The converter schema:
+
+    "subordinates": {
+        "ref": true,
+        "link": {
+            "from": {
+                "person_id": "supervisor_id"
+            },
+            "with": {
+                "employee_id": "person_id"
+            }
+        }
+    }
+
+It can be used by passing the `link` in data with suffix `_link`, as follow:
+
+    $converted = $converter->convert(
+        $person,
+        [
+            "subordinates" => $person,
+            "subordinates_link" => $orgHierarchy
         ]
     );
 
