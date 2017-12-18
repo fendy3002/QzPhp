@@ -75,8 +75,8 @@ class ClassConvertGenerator
                 else{
                     $value = $value ?: $key;
                     if(strtolower($value) != "::null"){
-                        if(!empty($definedSchema->fields->$value)){
-                            $field = $definedSchema->fields->$value;
+                        if(!empty($definedSchema->fields->$key)){
+                            $field = $definedSchema->fields->$key;
 
                             if($field == "date"){
                                 $conversion .= '    $result->' . $key . ' = $this->date($k->' . $value . ');' . "\n";
