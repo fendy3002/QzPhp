@@ -6,21 +6,39 @@ use QzPhp\Linq;
 
 class ClassConvertGenerator
 {
-    public function __construct($schema){
-        $this->schema = $schema;
+    public function __construct($config, $schemaList = []){
+        $this->config = $config;
+        $this->schemaList = $schemaList;
     }
-    public $schema;
+    public $config;
+    public $schemaList;
 
-    public function generate(){
+    public function generate($schemaDefinition){
         $result = [];
-        foreach($this->schema as $schemaName => $schema){
+        foreach($schemaDefinition as $schemaName => $schema){
             if($schemaName == "Version"){ continue; }
             $className = $schema->className;
             $fields = $schema->fields;
 
+            $definedSchema = (object)[
+                "folder" => "",
+                "fields" => (object)[]
+            ];
+            if(!empty($this->schemaList[$className])){
+                $definedSchema = $this->schemaList[$className];
+            }
+
+            $dateFormat = $this->config['dateFormat'];
+            $dateTimeFormat = $this->config['dateTimeFormat'];
+
             $schemaNamespace = substr($schemaName, 0, strrpos($schemaName, "\\"));
             $schemaClassName = substr($schemaName, strrpos($schemaName, "\\") + 1);
             $generator = new \QzPhp\ClassGenerator($schemaClassName);
+            $generator->setExtends("\QzPhp\AutoMapper\BaseMapper");
+            $generator->_constructorBody .= "parent::__construct([" . "\n".
+            "    'dateFormat' => '$dateFormat'," . "\n".
+            "    'dateTimeFormat' => '$dateTimeFormat'" . "\n".
+            "]);" . "\n";
 
             $generator->setNamespace($schemaNamespace)
                 ->setImports([
@@ -57,7 +75,25 @@ class ClassConvertGenerator
                 else{
                     $value = $value ?: $key;
                     if(strtolower($value) != "::null"){
-                        $conversion .= '    $result->' . $key . ' = $k->' . $value . ';' . "\n";
+                        if(!empty($definedSchema->fields->$value)){
+                            $field = $definedSchema->fields->$value;
+
+                            if($field == "date"){
+                                $conversion .= '    $result->' . $key . ' = $this->date($k->' . $value . ');' . "\n";
+                            }
+                            else if($field == "datetime"){
+                                $conversion .= '    $result->' . $key . ' = $this->datetime($k->' . $value . ');' . "\n";
+                            }
+                            else if($field == "int"){
+                                $conversion .= '    $result->' . $key . ' = $this->int($k->' . $value . ');' . "\n";
+                            }
+                            else{
+                                $conversion .= '    $result->' . $key . ' = $k->' . $value . ';' . "\n";
+                            }
+                        }
+                        else{
+                            $conversion .= '    $result->' . $key . ' = $k->' . $value . ';' . "\n";
+                        }
                     }
                 }
             }

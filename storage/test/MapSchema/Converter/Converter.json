@@ -1,7 +1,7 @@
 {
     "Version": 1.0,
     "Generated\\Converter\\Person1": {
-        "className": "Models\\Person",
+        "className": "Generated\\Models\\Person",
         "folder": "Converter",
         "fields":{
             "name": "",
@@ -79,7 +79,7 @@
         }
     },
     "Generated\\Converter\\Address1": {
-        "className": "Models\\Address",
+        "className": "Generated\\Models\\Address",
         "folder": "Converter",
         "fields":{
             "streetName": "",

@@ -1,12 +1,12 @@
 
 
 Code Coverage Report:       
-  2017-12-13 10:27:46       
+  2017-12-18 11:36:42       
                             
  Summary:                   
-  Classes: 21.95% (9/41)    
-  Methods: 44.49% (109/245) 
-  Lines:   49.56% (787/1588)
+  Classes: 21.43% (9/42)    
+  Methods: 45.02% (113/251) 
+  Lines:   49.91% (816/1635)
 
 \QzPhp::Arr
   Methods:  42.86% ( 3/ 7)   Lines:  31.25% (  5/ 16)
@@ -15,7 +15,7 @@ Code Coverage Report:
 \QzPhp::CUrl
   Methods:  14.29% ( 1/ 7)   Lines:   3.45% (  2/ 58)
 \QzPhp::ClassGenerator
-  Methods:  47.06% ( 8/17)   Lines:  70.83% ( 51/ 72)
+  Methods:  47.37% ( 9/19)   Lines:  70.67% ( 53/ 75)
 \QzPhp::ConnectionBuilder
   Methods:  66.67% ( 2/ 3)   Lines:  96.67% ( 29/ 30)
 \QzPhp::DBGenerator
@@ -31,7 +31,7 @@ Code Coverage Report:
 \QzPhp::IO
   Methods:  52.94% ( 9/17)   Lines:  46.15% ( 48/104)
 \QzPhp::Linq
-  Methods:  20.83% ( 5/24)   Lines:  47.64% ( 91/191)
+  Methods:  20.83% ( 5/24)   Lines:  47.92% ( 92/192)
 \QzPhp::NullExpirable
   Methods:  66.67% ( 2/ 3)   Lines:  75.00% (  6/  8)
 \QzPhp::Q
@@ -46,8 +46,10 @@ Code Coverage Report:
   Methods:  66.67% ( 2/ 3)   Lines:  64.44% ( 29/ 45)
 \QzPhp::Uuid
   Methods:  50.00% ( 1/ 2)   Lines:  50.00% (  4/  8)
+\QzPhp\AutoMapper::BaseMapper
+  Methods:  75.00% ( 3/ 4)   Lines:  80.00% (  4/  5)
 \QzPhp\AutoMapper::ClassConvertGenerator
-  Methods:  25.00% ( 2/ 8)   Lines:  41.15% ( 79/192)
+  Methods:  25.00% ( 2/ 8)   Lines:  45.00% ( 99/220)
 \QzPhp\AutoMapper::KeyValueConvertGenerator
   Methods: 100.00% ( 2/ 2)   Lines: 100.00% ( 25/ 25)
 \QzPhp\AutoMapper::ValueConverter

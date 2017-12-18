@@ -18,6 +18,11 @@ class Generator
         $converterFolder = Q::Z()->io()->combine($this->rootPath, $this->config['converter']);
 
         $this->log->messageLn("START:\t generate schema from schema in folder: $schemaFolder");
+        $schemaList = [];
+        $passConfig = array_merge([
+            "dateFormat" => "Y-m-d",
+            "dateTimeFormat" => "Y-m-d H:i:s"
+        ], $this->config);
         foreach(scandir($schemaFolder) as $file){
             if($file == '.' || $file == '..'){
                 continue;
@@ -26,8 +31,8 @@ class Generator
                 $schema = file_get_contents(Q::Z()->io()->combine($schemaFolder, $file));
                 $schema = json_decode($schema);
 
-                $classGenerator = new \QzPhp\AutoMapper\SchemaClassGenerator($schema);
-                $classDefinitions = $classGenerator->generate();
+                $classGenerator = new \QzPhp\AutoMapper\SchemaClassGenerator($passConfig);
+                $classDefinitions = $classGenerator->generate($schema);
                 foreach($classDefinitions as $definition){
                     $this->log->messageLn("CREATE:\t schema {$definition->schemaName}");
                     $writeTo = Q::Z()->io()->combine(
@@ -38,6 +43,8 @@ class Generator
                         $definition->definition;
                     Q::Z()->io()->write($writeTo, $content);
                     $this->log->messageLn("DONE:\t schema {$definition->schemaName} created");
+
+                    $schemaList[$definition->schemaName] = $definition->raw;
                 }
             }
         }
@@ -52,8 +59,8 @@ class Generator
                 $schema = file_get_contents(Q::Z()->io()->combine($converterFolder, $file));
                 $schema = json_decode($schema);
 
-                $classGenerator = new \QzPhp\AutoMapper\ClassConvertGenerator($schema);
-                $classDefinitions = $classGenerator->generate();
+                $classGenerator = new \QzPhp\AutoMapper\ClassConvertGenerator($passConfig, $schemaList);
+                $classDefinitions = $classGenerator->generate($schema);
                 foreach($classDefinitions as $definition){
                     $this->log->messageLn("CREATE:\t converter {$definition->schemaName}");
                     $writeTo = Q::Z()->io()->combine(

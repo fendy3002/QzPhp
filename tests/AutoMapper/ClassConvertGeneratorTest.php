@@ -19,6 +19,11 @@ class ClassConvertGeneratorTest extends \Tests\TestCase
         ];
 
         $generator = new \QzPhp\AutoMapper\ClassConvertGenerator([
+            "dateFormat" => "Y-m-d",
+            "dateTimeFormat" => "Y-m-d"
+        ]);
+        $result = $generator->generate([
+            "Version" => 1.0,
             "QzPhp\\AutoMapper\\Generated\\Address1" => (object)[
                 "className" => 'Models\Address',
                 "folder" => "generated",
@@ -29,9 +34,8 @@ class ClassConvertGeneratorTest extends \Tests\TestCase
                 ]
             ]
         ]);
-        $result = $generator->generate();
         foreach($result as $key=>$value){
-            file_put_contents(__DIR__ . '/generated1.txt', $value->definition, FILE_APPEND);
+            file_put_contents(__DIR__ . '/generated1.txt', $value->definition);
             eval($value->definition);
         }
 
@@ -49,7 +53,7 @@ class ClassConvertGeneratorTest extends \Tests\TestCase
             (object)[
                 "id" => "01",
                 "name"=> "Luke",
-                "birth"=> "2010/01/01",
+                "birth"=> "2017/12/17 01:12:23",
                 "identitication_no"=> "003",
                 "mother_id"=> "001"
             ]
@@ -66,7 +70,18 @@ class ClassConvertGeneratorTest extends \Tests\TestCase
             ]
         ];
 
-        $generator = new \QzPhp\AutoMapper\ClassConvertGenerator((object)[
+        $generator = new \QzPhp\AutoMapper\ClassConvertGenerator([
+            "dateFormat" => "Y-m-d",
+            "dateTimeFormat" => "Y-m-d H:i:s"
+        ], [
+            "Models\Person" => (object)[
+                "fields" => (object)[
+                    "birth" => "date"
+                ]
+            ]
+        ]);
+        $result = $generator->generate([
+            "Version" => 1.0,
             "QzPhp\\AutoMapper\\Generated\\Person1" => (object)[
                 "className" => 'Models\Person',
                 "folder" => "generated",
@@ -84,9 +99,9 @@ class ClassConvertGeneratorTest extends \Tests\TestCase
                 ]
             ]
         ]);
-        $result = $generator->generate();
+
         foreach($result as $key=>$value){
-            file_put_contents(__DIR__ . '/generated2.txt', $value->definition, FILE_APPEND);
+            file_put_contents(__DIR__ . '/generated2.txt', $value->definition);
             eval($value->definition);
         }
 
@@ -99,5 +114,6 @@ class ClassConvertGeneratorTest extends \Tests\TestCase
         $actual = $converter->convert($person, $additionals);
 
         $this->assertEquals(1, count($actual));
+        $this->assertEquals("2017-12-17", $actual[0]->birth);
     }
 }

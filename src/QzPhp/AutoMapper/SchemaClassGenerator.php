@@ -6,14 +6,14 @@ use QzPhp\Linq;
 
 class SchemaClassGenerator
 {
-    public function __construct($schema){
-        $this->schema = $schema;
+    public function __construct($config){
+        $this->config = $config;
     }
-    public $schema;
+    public $config;
 
-    public function generate(){
+    public function generate($schema){
         $result = [];
-        foreach($this->schema as $schemaName => $schema){
+        foreach($schema as $schemaName => $schema){
             if($schemaName == "Version"){ continue; }
             $fields = $schema->fields;
 
@@ -39,6 +39,7 @@ class SchemaClassGenerator
             $filePath = Q::Z()->io()->combine($schema->folder, $className . ".php");
             $result[$schemaName] = (object)[
                 "filePath" => $filePath,
+                "raw" => $schema,
                 "definition" => $generator->generateClassDefinition(),
                 'schemaName' => $schemaName
             ];

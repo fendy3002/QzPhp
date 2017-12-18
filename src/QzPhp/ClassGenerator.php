@@ -96,6 +96,14 @@ class ClassGenerator
         $this->_constructorParameters = $parameters;
     }
 
+    public $_extends;
+    public function getExtends($extends){
+        return $this->_extends;
+    }
+    public function setExtends($extends){
+        $this->_extends = $extends;
+    }
+
     public function generate(){
         $classDefinition = $this->generateClassDefinition();
         eval($classDefinition);
@@ -135,13 +143,15 @@ class ClassGenerator
             return $t1 . $t1 . $k;
         });
         $constructorBody = implode("\n", $constructorBodies);
+        $extends = "";
+        if($this->_extends){ $extends = " extends " . $this->_extends; }
 
         $classDefinition =
             "namespace {$this->_namespace};\n" .
             "\n".
             "$use\n" .
             "\n".
-            "class {$this->_name}{\n".
+            "class {$this->_name} $extends {\n".
             $t1 . "public function __construct($constructorParameter) {\n".
                 "$constructorBody". "\n" .
             $t1 . "}\n".
