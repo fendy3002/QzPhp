@@ -246,7 +246,7 @@ class ClassConvertGenerator
     private function generateArray($key, $value, $statement){
         $t = "    ";
         $methodBody = '';
-        $methodBody .= '    if(!empty($additional["' . $key . '"]) && count($additional["' . $key . '"]) > 0){' . "\n";
+        $methodBody .= '    if(!empty($additional["' . $key . '"])){' . "\n";
         if(!empty($value->key)){
             $conversions = [];
             foreach($value->key as $source => $converted){
