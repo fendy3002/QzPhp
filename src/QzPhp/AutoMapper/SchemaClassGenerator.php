@@ -28,11 +28,12 @@ class SchemaClassGenerator
 
             $conversion = "";
             foreach($fields as $fieldName => $type){
+                $defaultValue = substr($type, strlen($type) -2) == "[]" ? " = []" : "";
                 $doc =
                     "/**" . "\n" .
                     " * @var " . $type . "\n" .
                     " */";
-                $property = 'public $' . $fieldName . ";";
+                $property = 'public $' . $fieldName . $defaultValue . ";";
                 $generator->addProperty($property, $doc);
             }
 
