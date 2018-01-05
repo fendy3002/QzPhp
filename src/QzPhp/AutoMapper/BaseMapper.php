@@ -20,4 +20,11 @@ class BaseMapper
     protected function int($from){
         return (int)$from;
     }
+    protected function bool($from){
+        return $from == "1" ? true :
+            $from == "0" ? false :
+            strtolower($from) == "true" ? true : 
+            strtolower($from) == "false" ? false :
+            (bool)$from;
+    }
 }

@@ -87,6 +87,9 @@ class ClassConvertGenerator
                             else if($field == "int"){
                                 $conversion .= '    $result->' . $key . ' = $this->int($k->' . $value . ');' . "\n";
                             }
+                            else if($field == "bool" || $field == "boolean"){
+                                $conversion .= '    $result->' . $key . ' = $this->bool($k->' . $value . ');' . "\n";
+                            }
                             else{
                                 $conversion .= '    $result->' . $key . ' = $k->' . $value . ';' . "\n";
                             }
