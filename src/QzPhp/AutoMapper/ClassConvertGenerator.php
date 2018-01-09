@@ -90,6 +90,9 @@ class ClassConvertGenerator
                             else if($field == "bool" || $field == "boolean"){
                                 $conversion .= '    $result->' . $key . ' = $this->bool($k->' . $value . ');' . "\n";
                             }
+                            else if($field == "decimal" || $field == "float" || $field == "double"){
+                                $conversion .= '    $result->' . $key . ' = $this->float($k->' . $value . ');' . "\n";
+                            }
                             else{
                                 $conversion .= '    $result->' . $key . ' = $k->' . $value . ';' . "\n";
                             }

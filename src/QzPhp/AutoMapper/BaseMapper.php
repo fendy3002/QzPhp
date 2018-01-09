@@ -20,6 +20,9 @@ class BaseMapper
     protected function int($from){
         return (int)$from;
     }
+    protected function float($from){
+        return (float)$from;
+    }
     protected function bool($from){
         return $from == "1" ? true :
             $from == "0" ? false :
