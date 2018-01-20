@@ -15,7 +15,7 @@ class DateHelper{
         $period = $periodFrom;
         for($day = 0; $day <= $diffInDays; $day++){
             // clone the date
-            $result[] = \DateTime::createFromFormat("Y-m-d", $period->format("Y-m-d"));
+            $result[] = clone $period;
             $period->add(new \DateInterval("P1D"));
         }
         return $result;
@@ -23,14 +23,14 @@ class DateHelper{
     /**
      * Generate date array for each day for duration given
      * @var DateTime $periodFrom start date
-     * @var Int $duration how long
+     * @var int $duration how long
      * @return DateTime[] Date array consist of date objects for duration 
      */
     public function dateDurationToArray(\DateTime $periodFrom, $duration){
         $result = [];
         $period = $periodFrom;
-        for($day = 0; $day <= $duration; $day++){
-            $result[] = \DateTime::createFromFormat("Y-m-d", $period->format("Y-m-d"));
+        for($day = 0; $day < $duration; $day++){
+            $result[] = clone $period;
             $period->add(new \DateInterval("P1D"));
         }
         return $result;

@@ -43,6 +43,10 @@ s\ConnectionBuilder
 DBGenerator\DBGenerator
  [x] 
 
+DateTest\Date
+ [x] Date range to array
+ [x] Date duration to array
+
 Expirable\Expirable
  [x] 
 
@@ -85,6 +89,9 @@ Linq\SelectKeyValue
  [x] 
 
 Linq\Select
+ [x] 
+
+Linq\ToKeyArray
  [x] 
 
 Linq\ToKeyValue

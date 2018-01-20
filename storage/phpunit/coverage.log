@@ -1,12 +1,12 @@
 
 
 Code Coverage Report:       
-  2017-12-18 11:39:35       
+  2018-01-20 06:49:00       
                             
  Summary:                   
-  Classes: 23.81% (10/42)   
-  Methods: 45.42% (114/251) 
-  Lines:   50.21% (821/1635)
+  Classes: 23.26% (10/43)   
+  Methods: 45.95% (119/259) 
+  Lines:   50.86% (862/1695)
 
 \QzPhp::Arr
   Methods:  42.86% ( 3/ 7)   Lines:  31.25% (  5/ 16)
@@ -20,8 +20,10 @@ Code Coverage Report:
   Methods:  66.67% ( 2/ 3)   Lines:  96.67% ( 29/ 30)
 \QzPhp::DBGenerator
   Methods: 100.00% ( 1/ 1)   Lines: 100.00% (  5/  5)
+\QzPhp::DateHelper
+  Methods: 100.00% ( 2/ 2)   Lines: 100.00% ( 15/ 15)
 \QzPhp::Enum
-  Methods:  48.00% (12/25)   Lines:  60.81% ( 45/ 74)
+  Methods:  51.85% (14/27)   Lines:  63.74% ( 58/ 91)
 \QzPhp::Expirable
   Methods: 100.00% ( 1/ 1)   Lines: 100.00% (  4/  4)
 \QzPhp::FileReader
@@ -31,13 +33,13 @@ Code Coverage Report:
 \QzPhp::IO
   Methods:  52.94% ( 9/17)   Lines:  46.15% ( 48/104)
 \QzPhp::Linq
-  Methods:  20.83% ( 5/24)   Lines:  47.92% ( 92/192)
+  Methods:  20.00% ( 5/25)   Lines:  50.97% (105/206)
 \QzPhp::NullExpirable
   Methods:  66.67% ( 2/ 3)   Lines:  75.00% (  6/  8)
 \QzPhp::Q
-  Methods:  73.08% (19/26)   Lines:  72.37% ( 55/ 76)
+  Methods:  74.07% (20/27)   Lines:  72.73% ( 56/ 77)
 \QzPhp::QDB
-  Methods:  33.33% ( 3/ 9)   Lines:  46.23% ( 49/106)
+  Methods:  33.33% ( 3/ 9)   Lines:  45.28% ( 48/106)
 \QzPhp::Str
   Methods:  60.00% ( 3/ 5)   Lines:  78.57% ( 22/ 28)
 \QzPhp::Time
@@ -47,9 +49,9 @@ Code Coverage Report:
 \QzPhp::Uuid
   Methods:  50.00% ( 1/ 2)   Lines:  50.00% (  4/  8)
 \QzPhp\AutoMapper::BaseMapper
-  Methods: 100.00% ( 4/ 4)   Lines: 100.00% (  5/  5)
+  Methods:  66.67% ( 4/ 6)   Lines:  45.45% (  5/ 11)
 \QzPhp\AutoMapper::ClassConvertGenerator
-  Methods:  25.00% ( 2/ 8)   Lines:  46.82% (103/220)
+  Methods:  25.00% ( 2/ 8)   Lines:  45.58% (103/226)
 \QzPhp\AutoMapper::KeyValueConvertGenerator
   Methods: 100.00% ( 2/ 2)   Lines: 100.00% ( 25/ 25)
 \QzPhp\AutoMapper::ValueConverter

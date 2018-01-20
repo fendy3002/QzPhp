@@ -9,85 +9,100 @@ class Enum {
 	public $data;
 	protected $commands;
 
+    public function __clone() {
+        $this->commands = array_merge([], $this->commands);
+    }
+
 	public function where($handler){
-		array_push($this->commands, function($data) use($handler){
+		$toReturn = clone $this;
+		array_push($toReturn->commands, function($data) use($handler){
 			return Linq::where($data, $handler);
 		});
-		return $this;
+		return $toReturn;
 	}
 
 	public function whereNotIn($compared, $comparer){
-		array_push($this->commands, function($data) use($compared, $comparer){
+		$toReturn = clone $this;
+		array_push($toReturn->commands, function($data) use($compared, $comparer){
 			return Linq::whereNotIn($data, $compared, $comparer);
 		});
-		return $this;
+		return $toReturn;
 	}
 	
 	public function whereExistsIn($compared, $comparer){
-		array_push($this->commands, function($data) use($compared, $comparer){
+		$toReturn = clone $this;
+		array_push($toReturn->commands, function($data) use($compared, $comparer){
 			return Linq::whereExistsIn($data, $compared, $comparer);
 		});
-		return $this;
+		return $toReturn;
 	}
 	
 	public function select($handler){
-		array_push($this->commands, function($data) use($handler){
+		$toReturn = clone $this;
+		array_push($toReturn->commands, function($data) use($handler){
 			return Linq::select($data, $handler);
 		});
-		return $this;
+		return $toReturn;
 	}
 	public function selectKeyValue($handler){
-		array_push($this->commands, function($data) use($handler){
+		$toReturn = clone $this;
+		array_push($toReturn->commands, function($data) use($handler){
 			return Linq::selectKeyValue($data, $handler);
 		});
-		return $this;
+		return $toReturn;
 	}
 
 	public function orderBy($handler){
-		array_push($this->commands, function($data) use($handler){
+		$toReturn = clone $this;
+		array_push($toReturn->commands, function($data) use($handler){
 			return Linq::orderBy($data, $handler);
 		});
-		return $this;
+		return $toReturn;
 	}
 
 	public function groupBy($select, $compare = NULL){
-		array_push($this->commands, function($data) use($select, $compare){
+		$toReturn = clone $this;
+		array_push($toReturn->commands, function($data) use($select, $compare){
 			return Linq::groupBy($data, $select, $compare);
 		});
-		return $this;
+		return $toReturn;
 	}
 
 	public function join($with, $select, $compare){
-		array_push($this->commands, function($data) use($with, $select, $compare){
+		$toReturn = clone $this;
+		array_push($toReturn->commands, function($data) use($with, $select, $compare){
 			return Linq::join($data, $with, $select, $compare);
 		});
-		return $this;
+		return $toReturn;
 	}
 
 	public function distinct($handler = NULL){
-		array_push($this->commands, function($data) use($handler){
+		$toReturn = clone $this;
+		array_push($toReturn->commands, function($data) use($handler){
 			return Linq::distinct($data, $handler);
 		});
-		return $this;
+		return $toReturn;
 	}
 
 	public function union(){
+		$toReturn = clone $this;
 		$args = func_get_args();
-		array_push($this->commands, function($data) use($args){
+		array_push($toReturn->commands, function($data) use($args){
 			$result = $data;
 	        foreach ($args as $param) {
 	            $result = array_merge($result, $param);
 	        }
 			return $result;
 		});
-		return $this;
+		return $toReturn;
 	}
 
 	public function extend($additional){
-		array_push($this->commands, function($data) use($additional){
+		$toReturn = clone $this;
+		array_push($toReturn->commands, function($data) use($additional){
 			return Linq::extend($data, $additional);
 		});
-		return $this;
+		return $toReturn;
 	}
 
 	public function any($handler){
@@ -101,19 +116,29 @@ class Enum {
 	}
 
 	public function flat(){
-		array_push($this->commands, function($data) {
+		$toReturn = clone $this;
+		array_push($toReturn->commands, function($data) {
 			return Linq::flat($data);
 		});
-		return $this;
+		return $toReturn;
 	}
 
 	public function toKeyValue($key, $value){
-		array_push($this->commands, function($data) use($key, $value){
+		$toReturn = clone $this;
+		array_push($toReturn->commands, function($data) use($key, $value){
 			return Linq::toKeyValue($data, $key, $value);
 		});
-		return $this;
+		return $toReturn;
 	}
 
+	public function toKeyArray($key, $value = NULL){
+		$toReturn = clone $this;
+		array_push($toReturn->commands, function($data) use($key, $value){
+			return Linq::toKeyArray($data, $key, $value);
+		});
+		return $toReturn;
+	}
+	
 	public function firstOrDefault($handler, $default){
 		$result = $this->value();
 		return Linq::firstOrDefault($result, $handler, $default);
@@ -148,14 +173,13 @@ class Enum {
 	}
 
 	public function value(){
-		$result = array_merge(array(), $this->data); //prevent reference keep
+		//prevent reference keep
+		$result = array_merge(array(), $this->data);
 		if(count($this->commands) > 0){
 			foreach($this->commands as $command){
 				$result = $command($result);
 			}
 		}
-		unset($this->commands);
-		$this->commands = array();
 		return $result;
 	}
 

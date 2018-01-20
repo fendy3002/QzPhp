@@ -308,6 +308,25 @@ class Linq {
 		return $result;
 	}
 
+	public static function toKeyArray($source, $key, $value = null){
+		if(empty($source) || count($source) == 0){
+			return [];
+		}
+
+		$result = [];
+		foreach($source as $each){
+			$toAdd = $each;
+			if(!empty($value)){
+				$toAdd = $value($each);
+			}
+			if(empty($result[$key($each)])){
+				$result[$key($each)] = [];
+			}
+			$result[$key($each)][] = $toAdd;
+		}
+		return $result;
+	}
+
 	public static function whereExistsIn($source, $compared, $key){
 		return Linq::where($source, function($k) use($compared, $key){
             return Linq::any($compared, function($l) use ($k, $key){
