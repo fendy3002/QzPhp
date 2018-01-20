@@ -10,17 +10,11 @@ Generate php object to object mapper using JSON specification
 2. [Converter](#converter)
   
     a. [fields](#converter_fields)
-
     b. [data](#converter_data)
-
     c. [type: array / object](#converter_array_object)
-
     d. [object field](#converter_field_fields)
-
     e. [schema](#converter_schema)
-    
     f. [key](#converter_key)
-
     g. [ref link](#converter_ref_link)
 
 <a name="schema"></a>
@@ -73,8 +67,8 @@ Converter fields are key-value JSON, with key being the target name, and value b
 
 If the value is string, the value will refer as source object's field name. Example:
 
-    "name" : "name"
-    // equals $target->name = $source->name
+    "name" : "someField"
+    // equals $target->name = $source->someField
 
 If the value is empty string, the source field will use key / target field.
 
