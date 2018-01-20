@@ -10,11 +10,17 @@ Generate php object to object mapper using JSON specification
 2. [Converter](#converter)
   
     a. [fields](#converter_fields)
+
     b. [data](#converter_data)
+
     c. [type: array / object](#converter_array_object)
+
     d. [object field](#converter_field_fields)
+
     e. [schema](#converter_schema)
+
     f. [key](#converter_key)
+    
     g. [ref link](#converter_ref_link)
 
 <a name="schema"></a>
