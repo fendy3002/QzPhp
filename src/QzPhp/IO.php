@@ -4,7 +4,7 @@ namespace QzPhp;
 class IO{
     /**
      * Combine physical path
-     * @var string[] Paths to combiine (unlimited args)
+     * @var string[] Paths to combine (unlimited args)
      * @return string Combined path
      */
     public function combine(){

@@ -23,28 +23,33 @@ class Q{
     public function clearMock(){
         $this->mock = [];
     }
+    
     public function arr($arr){
         return $this->getObj('arr', new Arr($arr));
-    }
-    public function string(){
-        return $this->getObj('string', new Str());
-    }
-    public function io(){
-        return $this->getObj('io', new IO());
-    }
-    public function geo(){
-        return $this->getObj('geo', new Geo());
-    }
-
-    public function url(){
-        return $this->getObj('url', new Url());
     }
     public function curl($url){
         return $this->getObj('curl', new CUrl($url));
     }
-
+    public function date(){
+        return $this->getObj('date', new DateHelper());
+    }
+	public function enum($data){
+		return $this->getObj('enum', new Enum($data));
+	}
+    public function geo(){
+        return $this->getObj('geo', new Geo());
+    }
+    public function io(){
+        return $this->getObj('io', new IO());
+    }
+    public function string(){
+        return $this->getObj('string', new Str());
+    }
     public function time(){
         return $this->getObj('time', new Time());
+    }
+    public function url(){
+        return $this->getObj('url', new Url());
     }
 
     public function stringEmpty($str){
@@ -106,9 +111,6 @@ class Q{
         return $result;
     }
 
-	public function enum($data){
-		return $this->getObj('enum', new Enum($data));
-	}
 
     public function db($dbConf, $logObj = NULL){
         $dbGen = new \QzPhp\DBGenerator();
