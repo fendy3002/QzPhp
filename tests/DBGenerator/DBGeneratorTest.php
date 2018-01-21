@@ -6,6 +6,7 @@ class DBGeneratorTest extends \Tests\TestCase
     public function test()
     {
         $conf = include(__DIR__ . "/../../testconf.php");
+        $conf = $conf['db'];
 
         $qdb = \QzPhp\Q::Z()->db([
             'host' => $conf['host'],

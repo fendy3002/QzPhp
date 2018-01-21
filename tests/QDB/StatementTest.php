@@ -6,6 +6,8 @@ class StatementTest extends \Tests\TestCase
     public function testException()
     {
         $conf = include(__DIR__ . "/../../testconf.php");
+        $conf = $conf['db'];
+
         $this->expectException(\PDOException::class);
 
         $log = new \QzPhp\Logs\ConsoleLog();

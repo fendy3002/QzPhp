@@ -6,6 +6,7 @@ class InsertTest extends \Tests\TestCase
     public function testNormal()
     {
         $conf = include(__DIR__ . "/../../testconf.php");
+        $conf = $conf['db'];
         $dbGenerator = new \QzPhp\DBGenerator();
         $dbh = $dbGenerator->get($conf['host'], $conf['username'], $conf['password'], $conf['database'], $conf['port']);
         $log = new \QzPhp\Logs\ConsoleLog();
@@ -29,6 +30,8 @@ class InsertTest extends \Tests\TestCase
         ];
 
         $conf = include(__DIR__ . "/../../testconf.php");
+        $conf = $conf['db'];
+
         $dbGenerator = new \QzPhp\DBGenerator();
         $dbh = $dbGenerator->get($conf['host'], $conf['username'], $conf['password'], $conf['database'], $conf['port']);
         $log = new \QzPhp\Logs\ConsoleLog();

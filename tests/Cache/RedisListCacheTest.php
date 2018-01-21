@@ -1,5 +1,5 @@
 <?php
-namespace Test\Expirable;
+namespace Test\Cache;
 
 class TestListModel{
     public $name = "Hello";
@@ -11,11 +11,8 @@ class RedisListCacheTest extends \Tests\TestCase
 {
     public function testExpireOnMethod()
     {
-        $redisConnection = [
-            'scheme' => 'tcp',
-            'host'   => 'redis_tst',
-            'port'   => 6379
-        ];
+        $conf = include(__DIR__ . "/../../testconf.php");
+        $redisConnection = $conf['redis'];
         $expirable = new \QzPhp\Cache\RedisListCache("redis.cache", [
             "connection" => $redisConnection,
             "expire" => 3
