@@ -63,10 +63,10 @@ class RedisCacheTest extends \Tests\TestCase
                 ];
             }
         ]);
-        $value1 = $expirable->get($onExpire);
-        $value2 = $expirable->get($onExpire);
+        $value1 = $expirable->get();
+        $value2 = $expirable->get();
         sleep(4);
-        $value3 = $expirable->get($onExpire);
+        $value3 = $expirable->get();
 
         $this->assertEquals(2, $context->cacheCall);
         $this->assertEquals($value1, $value2);

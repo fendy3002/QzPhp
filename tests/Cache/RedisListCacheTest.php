@@ -22,7 +22,9 @@ class RedisListCacheTest extends \Tests\TestCase
         ];
 
         $onExpire = function($key) use($context){
-            $context->cacheCall[$key] = $context->cacheCall[$key] ?: 0;
+            if(empty($context->cacheCall[$key])){
+                $context->cacheCall[$key] = 0;
+            }
             $context->cacheCall[$key]++;
             return [
                 new TestListModel()
