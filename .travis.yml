@@ -5,13 +5,10 @@ php:
   - "7"
 
 services:
-  - docker
   - mysql
   - redis-server
 
 before_install:
-  - docker exec query_db mysql -uroot -e "create database qzphp_db character set utf8mb4 collate utf8mb4_unicode_ci"
-  - docker exec query_db mysql -uroot -e "create table employee (id int unsigned auto_increment, name varchar(50), age int, primary key (id) );" qzphp_db
   - mysql -e 'CREATE DATABASE IF NOT EXISTS qzphp_db character set utf8mb4 collate utf8mb4_unicode_ci;'
   - create table employee (id int unsigned auto_increment, name varchar(50), age int, primary key (id) );" qzphp_db
 
