@@ -6,15 +6,14 @@ php:
 
 services:
   - docker
+  - mysql
+  - redis-server
 
 before_install:
-  - docker --version
-  - docker pull mariadb:latest
-  - docker run -d --name query_db -p 3307:3306 -e MYSQL_ALLOW_EMPTY_PASSWORD=true mariadb:latest
-  - docker run -d --name redis_tst -p 6381:6379 redis:latest
-  - sleep 25
   - docker exec query_db mysql -uroot -e "create database qzphp_db character set utf8mb4 collate utf8mb4_unicode_ci"
   - docker exec query_db mysql -uroot -e "create table employee (id int unsigned auto_increment, name varchar(50), age int, primary key (id) );" qzphp_db
+  - mysql -e 'CREATE DATABASE IF NOT EXISTS qzphp_db character set utf8mb4 collate utf8mb4_unicode_ci;'
+  - create table employee (id int unsigned auto_increment, name varchar(50), age int, primary key (id) );" qzphp_db
 
 install:
   - composer install
@@ -24,4 +23,4 @@ before_script:
   - cp `pwd`/ci/travis.conf `pwd`/testconf.php
 
 script:
-  - docker run --net dckr_net -v `pwd`:/app --rm registry.gitlab.com/fendy3002/dockerfiles/qz/phpunit:latest -c phpunit.xml
+  - phpunit -c phpunit.xml
