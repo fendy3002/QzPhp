@@ -38,8 +38,8 @@ class Dispatcher{
         if(empty($usedOption['when'])){
             $runAt = gmdate("Y-m-d\TH:i:s");
         }
-        else if(lower($this->config['timezone']) != "utc" && 
-            lower($this->config['timezone']) != "etc\utc"){
+        else if(strtolower($this->config['timezone']) != "utc" && 
+            strtolower($this->config['timezone']) != "etc\utc"){
             $carbonDate = null;
             if($usedOption['when'] instanceof \DateTime){
                 $carbonDate = Carbon::instance($usedOption['when']);
@@ -62,13 +62,15 @@ class Dispatcher{
         $insertParam = empty($param) ? "{}" : json_encode($param);
 
         $db->insert($this->config['tableName'], [
-            'tag' => $usedOption['tag'],
-            'utc_run' => $runAt,
-            'run_script' => $scriptPath,
-            'params' => $insertParam,
-            'priority' => $usedOption['priority'],
-            'retry' => 0,
-            'utc_created' => gmdate("Y-m-d\TH:i:s")
+            [
+                'tag' => $usedOption['tag'],
+                'utc_run' => $runAt,
+                'run_script' => $scriptPath,
+                'params' => $insertParam,
+                'priority' => $usedOption['priority'],
+                'retry' => 0,
+                'utc_created' => gmdate("Y-m-d\TH:i:s")
+            ]
         ]);
     }
 }

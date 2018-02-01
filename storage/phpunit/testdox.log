@@ -22,11 +22,11 @@ s\AutoMapper\ValueConverter
 s\BoolToYesNo\Get
  [x] Get
 
-Expirable\RedisCache
+Cache\RedisCache
  [x] Expire on method
  [x] Expire on constructor
 
-Expirable\RedisListCache
+Cache\RedisListCache
  [x] Expire on method
 
 ClassGenerator
@@ -123,6 +123,9 @@ QDB\Insert
 
 QDB\Statement
  [x] Exception
+
+s\Queue\Dispatch
+ [x] Dispatch
 
 s\String\ReplaceAccent
  [x] Replace

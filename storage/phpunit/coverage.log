@@ -1,12 +1,12 @@
 
 
 Code Coverage Report:       
-  2018-01-20 06:49:00       
+  2018-02-01 05:00:36       
                             
  Summary:                   
-  Classes: 23.26% (10/43)   
-  Methods: 45.95% (119/259) 
-  Lines:   50.86% (862/1695)
+  Classes: 22.73% (10/44)   
+  Methods: 45.98% (120/261) 
+  Lines:   52.40% (917/1750)
 
 \QzPhp::Arr
   Methods:  42.86% ( 3/ 7)   Lines:  31.25% (  5/ 16)
@@ -31,7 +31,7 @@ Code Coverage Report:
 \QzPhp::Geo
   Methods: 100.00% ( 2/ 2)   Lines: 100.00% ( 15/ 15)
 \QzPhp::IO
-  Methods:  52.94% ( 9/17)   Lines:  46.15% ( 48/104)
+  Methods:  52.94% ( 9/17)   Lines:  47.12% ( 49/104)
 \QzPhp::Linq
   Methods:  20.00% ( 5/25)   Lines:  50.97% (105/206)
 \QzPhp::NullExpirable
@@ -39,7 +39,7 @@ Code Coverage Report:
 \QzPhp::Q
   Methods:  74.07% (20/27)   Lines:  72.73% ( 56/ 77)
 \QzPhp::QDB
-  Methods:  33.33% ( 3/ 9)   Lines:  45.28% ( 48/106)
+  Methods:  33.33% ( 3/ 9)   Lines:  48.11% ( 51/106)
 \QzPhp::Str
   Methods:  60.00% ( 3/ 5)   Lines:  78.57% ( 22/ 28)
 \QzPhp::Time
@@ -72,3 +72,5 @@ Code Coverage Report:
   Methods:  20.00% ( 1/ 5)   Lines:  20.00% (  1/  5)
 \QzPhp\Models::Result
   Methods:  64.29% ( 9/14)   Lines:  65.38% ( 17/ 26)
+\QzPhp\Queue::Dispatcher
+  Methods:  50.00% ( 1/ 2)   Lines:  92.73% ( 51/ 55)
