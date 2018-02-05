@@ -18,10 +18,14 @@ class RedisCache{
             if(array_key_exists('onReseed', $option)){
                 $this->onReseed = $option['onReseed'];
             }
+            if(array_key_exists('refreshOnGet', $option)){
+                $this->refreshOnGet = $option['refreshOnGet'];
+            }
         }
 
         $this->connection = $this->connection ?: [];
         $this->expire = $this->expire ?: 300; // 5 minute
+        $this->refreshOnGet = $this->refreshOnGet ?: false;
         $this->client = new \Predis\Client($this->connection);
     }
 
@@ -30,6 +34,7 @@ class RedisCache{
     }
 
     private $key;
+    private $refreshOnGet;
     private $expire;
     private $onExpire;
     private $onReseed;
@@ -43,10 +48,11 @@ class RedisCache{
         if($this->isExpired()){
             $value = null;
             if(!empty($fromCache)){
+                $fromCacheUnserialized = unserialize($fromCache);
                 $value = $onExpire($fromCacheUnserialized);
             }
             else{
-                $value = $onExpire();
+                $value = $onExpire(null);
             }
             $toCache = serialize($value);
 
@@ -57,6 +63,10 @@ class RedisCache{
             return $value;
         }
         else{
+            if($this->refreshOnGet){
+                $time = time();
+                $this->client->set($this->key . '__lastupdate', $time);
+            }
             $fromCacheUnserialized = unserialize($fromCache);
             return $fromCacheUnserialized;
         }

@@ -25,6 +25,8 @@ s\BoolToYesNo\Get
 Cache\RedisCache
  [x] Expire on method
  [x] Expire on constructor
+ [x] Refresh on get
+ [x] On reseed and last cache
 
 Cache\RedisListCache
  [x] Expire on method
