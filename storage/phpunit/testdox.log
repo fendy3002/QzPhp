@@ -81,6 +81,10 @@ IO\Zip
 Linq\Distinct
  [x] 
 
+Linq\GetMaxMinBy
+ [x] Get by max
+ [x] Get by min
+
 Linq\GroupBy
  [x] 
 

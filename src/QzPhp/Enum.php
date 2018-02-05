@@ -157,6 +157,15 @@ class Enum {
 		return Linq::sum($result, $handler);
 	}
 
+	public function getByMax($handler){
+		$result = $this->value();
+		return Linq::getByMax($result, $handler);
+	}
+	public function getByMin($handler){
+		$result = $this->value();
+		return Linq::getByMin($result, $handler);
+	}
+
 	public function max($handler){
 		$result = $this->value();
 		return Linq::max($result, $handler);

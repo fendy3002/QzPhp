@@ -158,6 +158,39 @@ class Linq {
 		return $result;
 	}
 
+	public static function getByMax($data, $handler){
+		if(count($data) == 0){
+			return null;
+		}
+		else if(count($data) == 1){
+			return $data[0];
+		}
+		$result = $data[0];
+
+		for($i = 1; $i < count($data); $i++){
+			$maxNum = (float)$handler($result);;
+			$currentNum = (float)$handler($data[$i]);;
+			$result = $maxNum < $currentNum ? $data[$i] : $result;
+		}
+		return $result;
+	}
+	public static function getByMin($data, $handler){
+		if(count($data) == 0){
+			return null;
+		}
+		else if(count($data) == 1){
+			return $data[0];
+		}
+		$result = $data[0];
+
+		for($i = 1; $i < count($data); $i++){
+			$minNum = (float)$handler($result);;
+			$currentNum = (float)$handler($data[$i]);;
+			$result = $minNum > $currentNum ? $data[$i] : $result;
+		}
+		return $result;
+	}
+
 	public static function max($data, $handler){
 		if(count($data) == 0){
 			return null;
