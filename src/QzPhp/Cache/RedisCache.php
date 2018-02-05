@@ -15,6 +15,9 @@ class RedisCache{
             if(array_key_exists('onExpire', $option)){
                 $this->onExpire = $option['onExpire'];
             }
+            if(array_key_exists('onReseed', $option)){
+                $this->onReseed = $option['onReseed'];
+            }
         }
 
         $this->connection = $this->connection ?: [];
@@ -29,14 +32,22 @@ class RedisCache{
     private $key;
     private $expire;
     private $onExpire;
+    private $onReseed;
     private $connection;
     private $client;
 
     public function get($onExpire = NULL){
         $onExpire = $onExpire ?: $this->onExpire;
+        $fromCache = $this->client->get($this->key);
         
         if($this->isExpired()){
-            $value = $onExpire();
+            $value = null;
+            if(!empty($fromCache)){
+                $value = $onExpire($fromCacheUnserialized);
+            }
+            else{
+                $value = $onExpire();
+            }
             $toCache = serialize($value);
 
             $time = time();
@@ -46,11 +57,23 @@ class RedisCache{
             return $value;
         }
         else{
-            $fromCache = $this->client->get($this->key);
-            return unserialize($fromCache);
+            $fromCacheUnserialized = unserialize($fromCache);
+            return $fromCacheUnserialized;
         }
     }
-    public function reseed($onExpire = NULL){
+    public function reseed($onExpire = NULL, $onReseed = NULL){
+        $onReseed = $onReseed ?: $this->onReseed;
+        
+        if(!empty($onReseed)){
+            $fromCache = $this->client->get($this->key);
+            if(!empty($fromCache)){
+                $fromCacheUnserialized = unserialize($fromCache);
+                $onReseed($fromCacheUnserialized);
+            }
+            else{
+                $onReseed(null);
+            }
+        }
         $this->client->set($this->key . '__lastupdate', null);
         return $this->get($onExpire);
     }
