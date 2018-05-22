@@ -18,11 +18,12 @@ class DispatchTest extends \Tests\TestCase
             ],
             "timezone" => "Asia/Jakarta"
         ]);
-        $dispatcher->dispatch(\QzPhp\Q::Z()->io()->combine(__DIR__, "__testscript.js"), [
+        $dispatchResult = $dispatcher->dispatch(\QzPhp\Q::Z()->io()->combine(__DIR__, "__testscript.js"), [
             "param1" => "value1",
             "param2" => "value2",
         ], [
             "when" => "2018-01-01T00:00:00"
         ]);
+        $this->assertEquals(true, !empty($dispatchResult->uuid));
     }
 }

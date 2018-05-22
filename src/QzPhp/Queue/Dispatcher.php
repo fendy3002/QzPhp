@@ -31,6 +31,7 @@ class Dispatcher{
         $usedOption = array_merge([
             "tag" => "default",
             "priority" => 3,
+            "key" => null,
             "when" => null
         ], $options);
 
@@ -61,10 +62,13 @@ class Dispatcher{
 
         $insertParam = empty($param) ? "{}" : json_encode($param);
 
+        $uuid = \QzPhp\Q::Z()->uuid();
         $db->insert($this->config['tableName'], [
             [
                 'tag' => $usedOption['tag'],
                 'utc_run' => $runAt,
+                'uuid' => $uuid,
+                'key' => $usedOption['key'],
                 'run_script' => $scriptPath,
                 'params' => $insertParam,
                 'priority' => $usedOption['priority'],
@@ -72,5 +76,10 @@ class Dispatcher{
                 'utc_created' => gmdate("Y-m-d\TH:i:s")
             ]
         ]);
+
+        return (object)[
+            "key" => $usedOption['key'],
+            "uuid" => $uuid
+        ];
     }
 }

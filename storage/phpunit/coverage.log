@@ -1,12 +1,12 @@
 
 
 Code Coverage Report:       
-  2018-02-05 10:39:27       
+  2018-05-22 09:47:39       
                             
  Summary:                   
   Classes: 20.45% (9/44)    
   Methods: 45.66% (121/265) 
-  Lines:   53.44% (963/1802)
+  Lines:   53.57% (968/1807)
 
 \QzPhp::Arr
   Methods:  42.86% ( 3/ 7)   Lines:  31.25% (  5/ 16)
@@ -73,4 +73,4 @@ Code Coverage Report:
 \QzPhp\Models::Result
   Methods:  64.29% ( 9/14)   Lines:  65.38% ( 17/ 26)
 \QzPhp\Queue::Dispatcher
-  Methods:  50.00% ( 1/ 2)   Lines:  92.73% ( 51/ 55)
+  Methods:  50.00% ( 1/ 2)   Lines:  93.33% ( 56/ 60)
